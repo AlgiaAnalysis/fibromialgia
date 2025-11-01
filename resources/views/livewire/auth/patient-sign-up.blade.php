@@ -2,12 +2,12 @@
     <!-- Floating buttons -->
     <div class="fixed top-4 right-4 flex flex-col gap-2 z-10">
         <!-- Home button -->
-        <a href="/" class="p-3 bg-white shadow-xl border border-gray-200 rounded-lg text-gray-800 hover:bg-gray-800 hover:text-white font-semibold hover:cursor-pointer transition-colors duration-200">
+        <a href="/" class="p-3 bg-blue-300/60 shadow-xl border border-blue-200 rounded-lg text-blue-800 hover:bg-blue-800 hover:text-white font-semibold hover:cursor-pointer transition-colors duration-200">
             <i class="fad fa-home text-xl"></i>
         </a>
         
         <!-- Login button -->
-        <a href="/login" class="p-3 bg-white shadow-xl border border-gray-200 rounded-lg text-gray-800 hover:bg-gray-800 hover:text-white font-semibold hover:cursor-pointer transition-colors duration-200">
+        <a href="/login" class="p-3 bg-blue-300/60 shadow-xl border border-blue-200 rounded-lg text-blue-800 hover:bg-blue-800 hover:text-white font-semibold hover:cursor-pointer transition-colors duration-200">
             <i class="fad fa-sign-in text-xl"></i>
         </a>
     </div>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Auth;
 
 use Livewire\Component;
 use Livewire\Attributes\Layout;
@@ -31,6 +31,6 @@ class DoctorSignUp extends Component
 
     public function render()
     {
-        return view('livewire.doctor-sign-up');
+        return view('livewire.auth.doctor-sign-up');
     }
 }

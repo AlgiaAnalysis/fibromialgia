@@ -15,8 +15,6 @@
         public function save($data) {
             $model = $this->model::create($data);
 
-            $user = Auth::user();
-
             // $actionLogCtrl = new ActionLogCtrl();
             // $actionLogCtrl->save([
             //     "acl_model" => $this->modelName,
@@ -39,6 +37,7 @@
             $registry->update($data);
             $registry->refresh();
 
+            /*
             $user = Auth::user();
 
             $actionLogCtrl = new ActionLogCtrl();
@@ -52,6 +51,7 @@
                 "acl_model_id" => $registry->getKey(),
                 "users_usr_id" => $user->usr_id ?? null,
             ]);
+            */
 
             return $registry;
         }
@@ -109,6 +109,7 @@
 
             $deleted = $registry->delete();
 
+            /*
             if ($deleted) {
                 (new ActionLogCtrl())->save([
                     "acl_model" => $this->modelName,
@@ -121,6 +122,7 @@
                     "users_usr_id" => Auth::user()->usr_id ?? null,
                 ]);
             }
+            */
 
             return $deleted;
         }

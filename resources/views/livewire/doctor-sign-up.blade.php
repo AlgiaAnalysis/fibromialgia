@@ -20,9 +20,9 @@
     <div class="bg-white rounded-lg shadow-xl border border-gray-200 w-full max-w-sm sm:max-w-md lg:max-w-lg mx-auto">
         <div class="flex flex-row justify-between w-full mb-4 sm:mb-6 px-4 sm:px-6">
             <div class="flex-1">
-                <h2 class="text-xl sm:text-2xl font-semibold text-left italic pt-6 sm:pt-8">Cadastro de Paciente</h2>
+                <h2 class="text-xl sm:text-2xl font-semibold text-left italic pt-6 sm:pt-8">Cadastro de Doutor(a)</h2>
                 <p class="text-sm text-gray-500 mt-1">
-                    Registre os dados das respostas relacioandas a sua fibromialgia.
+                    Acompanhe os resultados dos questionários dos seus pacientes.
                 </p>
                 <p class="text-xs text-red-500 mt-2">
                     * Campos Obrigatórios
@@ -37,7 +37,7 @@
             <!-- Nome Field (opcional) -->
             <div class="mb-4">
                 <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
-                    Nome
+                    Nome <span class="text-red-500">*</span>
                 </label>
                 <div class="flex flex-row">
                     <div class="p-2.5 sm:p-3 bg-gray-200/50 rounded-l-md flex items-center pointer-events-none">
@@ -46,7 +46,7 @@
                     <input
                         id="name"
                         type="text"
-                        wire:model="patient.name"
+                        wire:model="doctor.name"
                         class="w-full px-2 sm:px-3 py-2 sm:py-2.5 border border-gray-200 rounded-r-md focus:outline-none focus:ring-2 focus:ring-gray-800/40 text-sm sm:text-base"
                         placeholder="Seu nome completo"
                         required
@@ -66,7 +66,7 @@
                     <input
                         id="email"
                         type="email"
-                        wire:model="patient.email"
+                        wire:model="doctor.email"
                         class="w-full px-2 sm:px-3 py-2 sm:py-2.5 border border-gray-200 rounded-r-md focus:outline-none focus:ring-2 focus:ring-gray-800/40 text-sm sm:text-base"
                         placeholder="seu@email.com"
                         required
@@ -77,22 +77,19 @@
              <!-- Senha Field (obrigatório) -->
              <div class="mb-4" x-data="{ show: false }">
                 <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
-                    Gênero <span class="text-red-500">*</span>
+                    CRM <span class="text-red-500">*</span>
                 </label>
                 <div class="flex flex-row relative">
                     <div class="p-2.5 sm:p-3 bg-gray-200/50 rounded-l-md flex items-center pointer-events-none">
-                        <i class="fad fa-venus-mars text-sm text-gray-600/70"></i>
+                        <i class="fad fa-user-md text-sm text-gray-600/70"></i>
                     </div>
-                    <select
-                        id="gender"
-                        wire:model="patient.gender"
+                    <input
+                        id="crm"
+                        wire:model="doctor.crm"
                         class="w-full px-2 sm:px-3 py-2 sm:py-2.5 border border-gray-200 rounded-r-md focus:outline-none focus:ring-2 focus:ring-gray-800/40 text-sm sm:text-base pr-10"
+                        placeholder="CRM"
                         required
-                    >
-                        <option value="M">Masculino</option>
-                        <option value="F">Feminino</option>
-                        <option value="N">Não informado</option>
-                    </select>
+                    />
                 </div>
             </div>
 
@@ -182,7 +179,7 @@
                         <div class="ml-2">
                             <p class="text-xs sm:text-sm text-blue-800 font-medium">Como funciona?</p>
                             <p class="text-xs sm:text-sm text-blue-700 mt-1">
-                                Após o cadastro, você será redirecionado para o sistema de questionários.
+                                Após o cadastro, você será redirecionado para o sistema e poderá acompanhar os resultados dos questionários dos seus pacientes.
                             </p>
                         </div>
                     </div>

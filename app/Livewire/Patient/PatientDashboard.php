@@ -8,6 +8,7 @@ use App\Models\PatientReport;
 use App\Models\Appointment;
 use App\Models\Question;
 use App\Models\ReportAnswer;
+use App\Models\Patient;
 use App\Http\Controllers\dao\GenericCtrl;
 use Illuminate\Support\Facades\Auth;
 use App\View\Components\Layouts\PatientLayout;
@@ -52,6 +53,19 @@ class PatientDashboard extends Component
             ->first();
 
         $lastDailyReportScore = $lastDailyReport ? ($lastDailyReport->par_score ?? 0) : 0;
+
+        // Check if patient has completed daily report today
+        $today = Carbon::today()->format('Y-m-d');
+        $todayDailyReport = PatientReport::where('patient_pat_id', $patientId)
+            ->where('par_type', PatientReport::TYPE_DAILY)
+            ->whereDate('par_period_starts', $today)
+            ->first();
+        
+        $hasTodayDailyReport = $todayDailyReport !== null;
+
+        // Get patient streak
+        $patient = Patient::find($patientId);
+        $patientStreak = $patient ? ($patient->pat_streak ?? 0) : 0;
 
         // Get last 7 daily reports for chart
         $last7DailyReports = PatientReport::where('patient_pat_id', $patientId)
@@ -143,6 +157,8 @@ class PatientDashboard extends Component
             'chartLabels' => $chartLabels,
             'chartData' => $chartData,
             'questionCharts' => $questionCharts,
+            'hasTodayDailyReport' => $hasTodayDailyReport,
+            'patientStreak' => $patientStreak,
         ]);
     }
 }

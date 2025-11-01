@@ -250,15 +250,16 @@ class DoctorReportAnalysis extends Component
             }
         }
 
-        $prompt .= "Analise os dados acima e identifique:\n";
-        $prompt .= "1. Tendências e mudanças nos scores dos questionários ao longo do tempo\n";
-        $prompt .= "2. Variações significativas nas respostas aos questionários\n";
-        $prompt .= "3. Correlações entre os resultados dos questionários e as informações das consultas médicas\n";
-        $prompt .= "4. Padrões que possam indicar melhora ou piora da condição\n";
-        $prompt .= "5. Relação entre medicação (quando informada), scores e respostas\n";
-        $prompt .= "6. Discrepâncias ou concordâncias entre os achados dos questionários e os diagnósticos/observações das consultas\n";
-        $prompt .= "7. Recomendações baseadas na comparação completa\n";
-        $prompt .= "\nForneça uma análise detalhada e profissional em português brasileiro, formatada em Markdown.";
+        $prompt = "Considerando os Dados Brutos do Paciente passados anteriormente:\n\n";
+        $prompt .= "Persona: Aja como um analista de dados clínicos, especializado em reumatologia.\n";
+        $prompt .= "Contexto: Sua missão é analisar os dados brutos de um paciente com fibromialgia e gerar um sumário para um médico ocupado. O objetivo é focar apenas nos pontos de maior relevância para a consulta.\n\n";
+        $prompt .= "Instruções de Saída (Obrigatório)\n";
+        $prompt .= "1. Gere 3 a 4 pontos de atenção em formato de lista (bullet points).\n";
+        $prompt .= "2. Seja breve e objetivo (máximo 15 palavras por ponto).\n";
+        $prompt .= "3. *NÃO FAÇA DIAGNÓSTICOS.*\n";
+        $prompt .= "4. *NÃO SUGIRA MEDICAMENTOS.*\n";
+        $prompt .= "5. *FOQUE* nas correlações entre os dados (Aderência, Sono, Dor e FIQR).\n";
+        $prompt .= "6. Comece a resposta diretamente com os pontos.\n";
 
         return $prompt;
     }

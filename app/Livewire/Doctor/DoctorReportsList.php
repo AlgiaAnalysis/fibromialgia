@@ -14,14 +14,18 @@ use App\Models\PatientDomainReport;
 use App\Models\ReportAnswer;
 use App\Models\AppointmentAnswer;
 use Illuminate\Support\Facades\Auth;
+use TallStackUi\Traits\Interactions;
 
 #[Layout(DoctorLayout::class)]
 class DoctorReportsList extends Component
 {
+    use Interactions;
+
     public $expandedPatient = null;
     public $selectedReport = null;
     public $reportType = null; // 'daily', 'fiqr', 'appointment'
     public $showModal = false;
+    public $medication = ''; // Campo para medicamentos prescritos
 
     public function togglePatient($patientId)
     {
@@ -37,6 +41,14 @@ class DoctorReportsList extends Component
         $this->selectedReport = $reportId;
         $this->reportType = $type;
         $this->showModal = true;
+        
+        // Load medication if it's a report (daily or fiqr)
+        if ($type === 'daily' || $type === 'fiqr') {
+            $report = PatientReport::where('par_id', $reportId)->first();
+            $this->medication = $report ? ($report->par_medication ?? '') : '';
+        } else {
+            $this->medication = '';
+        }
     }
 
     public function closeModal()
@@ -44,6 +56,33 @@ class DoctorReportsList extends Component
         $this->showModal = false;
         $this->selectedReport = null;
         $this->reportType = null;
+        $this->medication = '';
+    }
+
+    public function saveMedication()
+    {
+        // Only allow saving for daily and fiqr reports
+        if (!in_array($this->reportType, ['daily', 'fiqr']) || !$this->selectedReport) {
+            $this->toast()->error('Não é possível salvar medicamentos para este tipo de registro.')->send();
+            return;
+        }
+
+        try {
+            $report = PatientReport::where('par_id', $this->selectedReport)->first();
+            
+            if (!$report) {
+                $this->toast()->error('Registro não encontrado.')->send();
+                return;
+            }
+
+            $report->update([
+                'par_medication' => $this->medication
+            ]);
+
+            $this->toast()->success('Medicamentos salvos com sucesso!')->send();
+        } catch (\Exception $e) {
+            $this->toast()->error('Erro ao salvar medicamentos: ' . $e->getMessage())->send();
+        }
     }
 
     public function render()

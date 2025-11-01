@@ -454,6 +454,50 @@
                     @endif
                 </div>
 
+                <!-- Medication Prescription Section (Only for daily and fiqr reports) -->
+                @if(in_array($reportType, ['daily', 'fiqr']))
+                    <div class="mt-6 pt-6 border-t border-gray-200">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-green-500/10 rounded-lg px-3 py-2 mr-3">
+                                <i class="fad fa-pills text-green-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800">Prescrição de Medicamentos</h3>
+                                <p class="text-sm text-gray-500">Prescreva medicamentos para este questionário</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white border border-gray-200 rounded-lg p-4">
+                            <label for="medication" class="block text-sm font-medium text-gray-700 mb-2">
+                                Medicamentos Prescritos
+                            </label>
+                            <textarea
+                                id="medication"
+                                wire:model="medication"
+                                rows="6"
+                                class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-200 focus:border-green-500 transition-all duration-200 resize-vertical"
+                                placeholder="Digite os medicamentos prescritos para este questionário..."
+                            ></textarea>
+                            <p class="text-xs text-gray-500 mt-2">
+                                <i class="fad fa-info-circle mr-1"></i>
+                                As informações serão salvas automaticamente quando você clicar em "Salvar Medicamentos"
+                            </p>
+                        </div>
+
+                        <div class="mt-4 flex justify-end">
+                            <button
+                                wire:click="saveMedication"
+                                wire:loading.attr="disabled"
+                                class="px-6 py-3 hover:cursor-pointer bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition-all duration-200 flex items-center disabled:opacity-50 shadow-md">
+                                <i class="fad fa-save mr-2" wire:loading.remove wire:target="saveMedication"></i>
+                                <i class="fad fa-spinner fa-spin mr-2" wire:loading wire:target="saveMedication"></i>
+                                <span wire:loading.remove wire:target="saveMedication">Salvar Medicamentos</span>
+                                <span wire:loading wire:target="saveMedication">Salvando...</span>
+                            </button>
+                        </div>
+                    </div>
+                @endif
+
                 <!-- Modal Footer -->
                 <x-slot:footer>
                     <div class="mt-6 pt-4 border-t border-gray-200 flex justify-end">

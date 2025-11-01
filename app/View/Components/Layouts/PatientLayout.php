@@ -26,6 +26,11 @@ class PatientLayout extends Component
         }
     }
 
+    public function logout() {
+        Auth::logout();
+        return redirect()->route('login');
+    }
+
     public function render(): View
     {
         return view('components.layouts.patient-layout', [

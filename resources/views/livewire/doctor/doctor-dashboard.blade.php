@@ -200,7 +200,7 @@
                                         <i class="fad fa-brain text-purple-600"></i>
                                     </div>
                                     <div>
-                                        <h4 class="font-semibold text-gray-800">Análise Comparativa</h4>
+                                        <h4 class="font-semibold text-gray-800">{{ $analysis['id'] }} - Análise Comparativa</h4>
                                         <p class="text-xs text-gray-600 mt-1">
                                             {{ $analysis['reportCount'] }} questionário(s) • 
                                             {{ $analysis['earliestDate'] }} até {{ $analysis['latestDate'] }}

@@ -1,16 +1,16 @@
-<div class="py-8 pt-4">
+<div class="py-4 md:py-8 pt-4">
     <div class="w-full">
-        <div class="flex items-center justify-between mb-6">
+        <div class="flex items-center justify-between mb-4 md:mb-6">
             <div class="flex items-center">
-                <div class="bg-purple-500/10 rounded-lg px-5 py-4 mr-3">
-                    <i class="fad fa-stethoscope text-purple-500 text-2xl"></i>
+                <div class="bg-purple-500/10 rounded-lg px-3 py-3 md:px-5 md:py-4 mr-3">
+                    <i class="fad fa-stethoscope text-purple-500 text-xl md:text-2xl"></i>
                 </div>
                 <div>
-                    <h3 class="text-lg font-semibold text-purple-500/80">Consulta Médica</h3>
+                    <h3 class="text-base md:text-lg font-semibold text-purple-500/80">Consulta Médica</h3>
                     @if($isViewMode && $existingAppointment)
-                        <p class="text-sm text-gray-500">Visualização da consulta de {{ \Carbon\Carbon::parse($existingAppointment->app_date)->format('d/m/Y') }}</p>
+                        <p class="text-xs md:text-sm text-gray-500">Visualização da consulta de {{ \Carbon\Carbon::parse($existingAppointment->app_date)->format('d/m/Y') }}</p>
                     @else
-                        <p class="text-sm text-gray-500">Preencha os dados da consulta para a data de {{ date('d/m/Y') }}</p>
+                        <p class="text-xs md:text-sm text-gray-500">Preencha os dados da consulta para a data de {{ date('d/m/Y') }}</p>
                     @endif
                 </div>
             </div>
@@ -34,31 +34,31 @@
 
         <!-- Questions List -->
         @if($questions && count($questions) > 0)
-            <div class="space-y-6">
+            <div class="space-y-4 md:space-y-6">
                 @foreach($questions as $question)
-                    <div class="bg-white rounded-lg shadow-md border border-gray-200 p-6 relative">
+                    <div class="bg-white rounded-lg shadow-md border border-gray-200 p-4 md:p-6 relative pb-16 md:pb-6">
                         <!-- Question Name -->
-                        <div class="mb-4 flex items-center">
+                        <div class="mb-4 md:mb-4 flex items-center">
                             <div class="bg-purple-500/10 rounded-lg px-3 py-2 mr-3">
                                 <i class="fad fa-question-circle text-purple-500 text-xl"></i>
                             </div>
-                            <h4 class="text-base font-semibold text-gray-800">{{ $question->que_name }}</h4>
+                            <h4 class="text-sm md:text-base font-semibold text-gray-800">{{ $question->que_name }}</h4>
                         </div>
 
                         <!-- Question Index Badge -->
-                        <div class="absolute top-6 right-6">
+                        <div class="absolute bottom-4 right-4">
                             <span class="bg-purple-100 text-purple-600 text-xs font-semibold px-3 py-1 rounded-full">
                                 #{{ $question->que_index }}
                             </span>
                         </div>
 
                         <!-- Answer Text Area -->
-                        <div class="mt-6">
+                        <div class="mt-4 md:mt-6">
                             <textarea
                                 @if($isViewMode) disabled @endif
                                 wire:model="answers.{{ $question->que_id }}"
                                 wire:change="updateAnswer({{ $question->que_id }}, $event.target.value)"
-                                rows="4"
+                                rows="5"
                                 class="w-full px-4 py-3 border-2 rounded-lg transition-all duration-200 resize-vertical
                                     focus:outline-none focus:ring-2 focus:ring-purple-200
                                     @if(!$isViewMode) border-gray-300 focus:border-purple-500 @else border-gray-200 bg-gray-50 opacity-75 cursor-not-allowed @endif">

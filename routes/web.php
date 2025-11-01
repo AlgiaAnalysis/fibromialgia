@@ -8,10 +8,9 @@ use App\Livewire\Auth\Login;
 use Illuminate\Support\Facades\Auth;
 
 //? Áreas de Guest
-Route::get('/', LandingPage::class);
+Route::get('/', Login::class);
 Route::get('/patient-sign-up', PatientSignUp::class)->name('patient-sign-up');
 Route::get('/doctor-sign-up', DoctorSignUp::class)->name('doctor-sign-up');
-Route::get('/login', Login::class)->name('login');
 
 Route::get('/logout', function() {
     Auth::logout();

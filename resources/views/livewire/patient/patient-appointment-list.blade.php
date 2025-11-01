@@ -95,7 +95,11 @@
                                         <div class="flex items-center justify-between">
                                             <div class="flex items-center flex-1">
                                                 <div class="w-14 h-14 bg-purple-500/10 rounded-xl flex items-center justify-center mr-4">
-                                                    <i class="fad fa-stethoscope text-purple-500 text-2xl"></i>
+                                                    <i
+                                                        wire:loading.remove wire:target="viewAppointment({{ $appointment->app_id }})"
+                                                        class="fad fa-stethoscope text-purple-500 text-2xl"></i>
+                                                    <i wire:loading wire:target="viewAppointment({{ $appointment->app_id }})"
+                                                        class="fad fa-spinner fa-spin text-purple-500 text-2xl"></i>
                                                 </div>
                                                 <div class="flex-1">
                                                     <div class="flex items-center justify-between mb-2">

@@ -48,6 +48,43 @@
                     </div>
                 </div>
             @endif
+
+            <!-- Medication Prescription Card -->
+            <div class="bg-white rounded-lg shadow-md border border-gray-200 p-6 mb-8">
+                <div class="flex items-center mb-4">
+                    <div class="bg-green-500/10 rounded-lg px-4 py-3 mr-3">
+                        <i class="fad fa-pills text-green-500 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800">Medicamentos Prescritos</h3>
+                        <p class="text-sm text-gray-500">Prescrições médicas para este questionário</p>
+                    </div>
+                </div>
+
+                @if($existingReport && $existingReport->par_medication && trim($existingReport->par_medication) !== '')
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                        <div class="flex items-start">
+                            <div class="shrink-0">
+                                <i class="fad fa-check-circle text-green-500 text-xl"></i>
+                            </div>
+                            <div class="ml-3 flex-1">
+                                <p class="text-gray-700 whitespace-pre-wrap leading-relaxed">{{ $existingReport->par_medication }}</p>
+                            </div>
+                        </div>
+                    </div>
+                @else
+                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <div class="flex items-center">
+                            <div class="shrink-0">
+                                <i class="fad fa-info-circle text-gray-400 text-xl"></i>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-gray-600 font-medium">Nenhum medicamento foi prescrito ainda para este questionário.</p>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            </div>
         @endif
 
         <!-- Questions List -->
@@ -102,16 +139,16 @@
                             </div>
                         @else
                             <!-- 0-10 scale buttons -->
-                            <div class="grid grid-cols-11 gap-2 mb-8">
+                            <div class="grid grid-cols-6 md:grid-cols-11 gap-2 mb-8">
                                 @for($i = 0; $i <= 10; $i++)
                                     <button
                                         @if($isViewMode) disabled @else wire:click="selectAnswer({{ $question->que_id }}, {{ $i }})" @endif
-                                        class="px-3 py-4 rounded-lg border-2 transition-all duration-200
+                                        class="px-2 py-3 md:px-3 md:py-4 rounded-lg border-2 transition-all duration-200
                                             {{ isset($answers[$question->que_id]) && $answers[$question->que_id] == $i
                                                 ? 'bg-orange-500 border-orange-500 text-white shadow-md'
                                                 : 'bg-white border-gray-300 text-gray-700' }}
                                             @if(!$isViewMode) hover:text-orange-500 hover:cursor-pointer hover:border-orange-500 hover:bg-orange-50 @else opacity-75 cursor-not-allowed @endif">
-                                        <span class="text-lg font-semibold">{{ $i }}</span>
+                                        <span class="text-base md:text-lg font-semibold">{{ $i }}</span>
                                     </button>
                                 @endfor
                             </div>

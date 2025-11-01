@@ -12,6 +12,7 @@ use App\Models\ReportAnswer;
 use TallStackUi\Traits\Interactions;
 use Illuminate\Support\Facades\Auth;
 use App\View\Components\Layouts\PatientLayout;
+use App\Models\Patient;
 
 #[Layout(PatientLayout::class)]
 class PatientDailyReportForm extends Component
@@ -112,6 +113,10 @@ class PatientDailyReportForm extends Component
 
         $patientDomainReport->update(['pdr_score' => $finalScore]);
         $patientReport->update(['par_score' => $finalScore]);
+
+        $patient = Patient::find($patientId);
+        $patient->pat_streak = $patient->pat_streak + 1;
+        $patient->save();
 
         $this->toast()->success('Questionário enviado com sucesso!')->send();
         return $this->redirect(route('patient.daily-report'));

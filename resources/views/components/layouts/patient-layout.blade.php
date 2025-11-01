@@ -27,7 +27,7 @@
 
             <!-- Header -->
             <div class="bg-blue-300/60 backdrop-blur-sm shadow-lg rounded-b-4xl h-30">
-                <div class="flex flex-row items-center justify-center px-6 py-8 space-x-12">
+                <div class="flex flex-row items-center justify-center px-6 py-8 space-x-74">
                     <!-- Logo and Title -->
                     <div class="flex items-center justify-center mr-6">
                         <div class="flex items-center justify-center w-14 h-14 bg-blue-500/80 rounded-lg shadow-md">
@@ -45,14 +45,6 @@
                             <a href="{{ route('patient.dashboard') }}" class="flex items-center text-blue-500/80 hover:text-white text-lg transition-colors px-4 py-3 rounded-lg hover:bg-blue-600/50 whitespace-nowrap">
                                 <i class="fad fa-home mr-2"></i>
                                 <span>Início</span>
-                            </a>
-                            <a href="#" class="flex items-center text-blue-500/80 hover:text-white text-lg transition-colors px-4 py-3 rounded-lg hover:bg-blue-600/50 whitespace-nowrap">
-                                <i class="fad fa-users mr-2"></i>
-                                <span>Pacientes</span>
-                            </a>
-                            <a href="#" class="flex items-center text-blue-500/80 hover:text-white text-lg transition-colors px-4 py-3 rounded-lg hover:bg-blue-600/50 whitespace-nowrap">
-                                <i class="fad fa-user-md mr-2"></i>
-                                <span>Médicos</span>
                             </a>
                             <a href="{{ route('patient.daily-report') }}" class="flex items-center text-blue-500/80 hover:text-white text-lg transition-colors px-4 py-3 rounded-lg hover:bg-blue-600/50 whitespace-nowrap">
                                 <i class="fad fa-clipboard-list mr-2"></i>

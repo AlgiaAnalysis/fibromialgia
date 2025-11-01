@@ -28,7 +28,7 @@
 
                         <div class="ml-4 flex flex-col items-start justify-start">
                             <span class="text-orange-500/80 font-medium">Questionários Diário</span>
-                            <span class="text-gray-500/80 font-medium text-xs">Quantidade de Envios: 10</span>
+                            <span class="text-gray-500/80 font-medium text-xs">Quantidade de Envios: {{ $dailyReportsCount }}</span>
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
 
                         <div class="ml-4 flex flex-col items-start justify-start">
                             <span class="text-orange-500/80 font-medium">FIQR</span>
-                            <span class="text-gray-500/80 font-medium text-xs">Quantidade de Envios: 10</span>
+                            <span class="text-gray-500/80 font-medium text-xs">Quantidade de Envios: {{ $fiqrReportsCount }}</span>
                         </div>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
 
                         <div class="ml-4 flex flex-col items-start justify-start">
                             <span class="text-orange-500/80 font-medium">Consultas</span>
-                            <span class="text-gray-500/80 font-medium text-xs">Total de Consultas: 10</span>
+                            <span class="text-gray-500/80 font-medium text-xs">Total de Consultas: {{ $appointmentsCount }}</span>
                         </div>
                     </div>
                 </div>
@@ -96,7 +96,7 @@
                                     <i class="fad fa-chart-line text-orange-500 text-lg"></i>
                                 </div>
                                 <div>
-                                    <h3 class="text-lg font-semibold text-gray-800">Evolução da Dor</h3>
+                                    <h3 class="text-lg font-semibold text-gray-800">Score de Dor</h3>
                                     <p class="text-sm text-gray-500">Últimos 7 dias</p>
                                 </div>
                             </div>
@@ -120,14 +120,12 @@
                             </svg>
                             <div class="absolute inset-0 flex items-center justify-center">
                                 <div class="text-center">
-                                    <p class="text-4xl font-bold text-gray-800">50</p>
-                                    <p class="text-sm text-gray-500">%</p>
+                                    <p class="text-4xl font-bold text-gray-800">8</p>
                                 </div>
                             </div>
                         </div>
                         <div class="text-center mt-6">
-                            <p class="text-lg font-semibold text-gray-800">Taxa de Resposta</p>
-                            <p class="text-sm text-gray-500">Este mês</p>
+                            <p class="text-lg font-semibold text-gray-800">Score de Hoje</p>
                         </div>
                     </div>
                 </div>

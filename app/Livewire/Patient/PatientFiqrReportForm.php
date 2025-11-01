@@ -10,8 +10,9 @@ use App\Models\PatientReport;
 use App\Models\PatientDomainReport;
 use App\Models\ReportAnswer;
 use TallStackUi\Traits\Interactions;
+use App\View\Components\Layouts\PatientLayout;
 
-#[Layout('components.layouts.patient-layout')]
+#[Layout(PatientLayout::class)]
 class PatientFiqrReportForm extends Component
 {
     use Interactions;

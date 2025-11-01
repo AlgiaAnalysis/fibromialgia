@@ -15,4 +15,8 @@ class Doctor extends Model
     protected $fillable = [
         "doc_crm",
     ];
+
+    public function doctorPatients() {
+        return $this->hasMany(DoctorPatients::class, "doctor_doc_id", "doc_id");
+    }
 }

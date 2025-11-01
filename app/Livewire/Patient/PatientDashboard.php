@@ -7,8 +7,9 @@ use Livewire\Attributes\Layout;
 use App\Models\PatientReport;
 use App\Models\Appointment;
 use Illuminate\Support\Facades\Auth;
+use App\View\Components\Layouts\PatientLayout;
 
-#[Layout('components.layouts.patient-layout')]
+#[Layout(PatientLayout::class)]
 class PatientDashboard extends Component
 {
     public function goToDailyReportList() {

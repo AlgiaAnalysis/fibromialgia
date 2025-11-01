@@ -21,13 +21,13 @@
         @livewireStyles
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-50">
-            <x-ts-dialog />
-            <x-ts-toast />
+        <x-ts-dialog />
+        <x-ts-toast />
 
+        <div class="min-h-screen bg-gray-50">
             <!-- Header -->
             <div x-data="{ activeTab: '{{ request()->route()->getName() }}' }" class="bg-blue-300/60 backdrop-blur-sm shadow-lg rounded-b-4xl h-30">
-                <div class="flex flex-row items-center justify-center px-6 py-8 space-x-42">
+                <div class="flex flex-row items-center justify-center px-6 py-8 space-x-40">
                     <!-- Logo and Title -->
                     <div class="flex items-center justify-center mr-6">
                         <div class="flex items-center justify-center w-14 h-14 bg-blue-500/80 rounded-lg shadow-md">
@@ -42,26 +42,26 @@
                     <!-- Navigation - Centralizado -->
                     <div class="flex items-center justify-center">
                         <nav class="flex items-center space-x-2" aria-label="Navegação principal">
-                            <a href="{{ route('patient.dashboard') }}"
-                               :class="activeTab === 'patient.dashboard' ? 'bg-blue-600/50 text-white' : 'text-blue-500/80 hover:text-white hover:bg-blue-600/50'"
+                            <a href="{{ route('doctor.dashboard') }}"
+                               :class="activeTab === 'doctor.dashboard' ? 'bg-blue-600/50 text-white' : 'text-blue-500/80 hover:text-white hover:bg-blue-600/50'"
                                class="flex items-center text-lg transition-colors px-4 py-3 rounded-lg whitespace-nowrap">
                                 <i class="fad fa-home mr-2"></i>
                                 <span>Início</span>
                             </a>
-                            <a href="{{ route('patient-doctor-list') }}"
-                               :class="activeTab === 'patient-doctor-list' ? 'bg-blue-600/50 text-white' : 'text-blue-500/80 hover:text-white hover:bg-blue-600/50'"
+                            <a href="{{ route('doctor.link-patient') }}"
+                               :class="activeTab === 'doctor.link-patient' ? 'bg-blue-600/50 text-white' : 'text-blue-500/80 hover:text-white hover:bg-blue-600/50'"
                                class="flex items-center text-lg transition-colors px-4 py-3 rounded-lg whitespace-nowrap">
-                                <i class="fad fa-user-md mr-2"></i>
-                                <span>Médicos</span>
+                                <i class="fad fa-users mr-2"></i>
+                                <span>Pacientes</span>
                             </a>
-                            <a href="{{ route('patient-reports-screen') }}"
-                               :class="activeTab === 'patient-reports-screen' ? 'bg-blue-600/50 text-white' : 'text-blue-500/80 hover:text-white hover:bg-blue-600/50'"
+                            <a href="{{ route('doctor.reports-list') }}"
+                               :class="activeTab === 'doctor.reports-list' ? 'bg-blue-600/50 text-white' : 'text-blue-500/80 hover:text-white hover:bg-blue-600/50'"
                                class="flex items-center text-lg transition-colors px-4 py-3 rounded-lg whitespace-nowrap">
                                 <i class="fad fa-clipboard-list mr-2"></i>
                                 <span>Questionários</span>
                             </a>
                             <a href="#"
-                               :class="activeTab === 'patient.analyses' ? 'bg-blue-600/50 text-white' : 'text-blue-500/80 hover:text-white hover:bg-blue-600/50'"
+                               :class="activeTab === 'doctor.analyses' ? 'bg-blue-600/50 text-white' : 'text-blue-500/80 hover:text-white hover:bg-blue-600/50'"
                                class="flex items-center text-lg transition-colors px-4 py-3 rounded-lg whitespace-nowrap">
                                 <i class="fad fa-chart-line mr-2"></i>
                                 <span>Análises</span>
@@ -77,7 +77,7 @@
                             <div class="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
                                 <i class="fad fa-user text-blue-500/80 text-lg"></i>
                             </div>
-                            <span class="text-white font-medium hidden md:block">Paciente</span>
+                            <span class="text-white font-medium hidden md:block">Doutor</span>
                             <i class="fad fa-chevron-down text-white text-xs"></i>
                         </div>
 
@@ -134,6 +134,5 @@
         </div>
 
         @livewireScripts
-        @stack('scripts')
     </body>
 </html>

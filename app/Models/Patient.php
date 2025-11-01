@@ -23,4 +23,19 @@ class Patient extends Model
         "pat_gender",
         "pat_created_at",
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'pat_id', 'usr_represented_agent');
+    }
+
+    public function patientReports()
+    {
+        return $this->hasMany(PatientReport::class, 'patient_pat_id', 'pat_id');
+    }
+
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class, 'patient_pat_id', 'pat_id');
+    }
 }

@@ -10,8 +10,9 @@ use App\Models\Appointment;
 use App\Models\AppointmentAnswer;
 use TallStackUi\Traits\Interactions;
 use Illuminate\Support\Facades\Auth;
+use App\View\Components\Layouts\PatientLayout;
 
-#[Layout('components.layouts.patient-layout')]
+#[Layout(PatientLayout::class)]
 class PatientAppointmentForm extends Component
 {
     use Interactions;

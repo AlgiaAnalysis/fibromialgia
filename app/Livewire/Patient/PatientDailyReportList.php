@@ -4,12 +4,14 @@ namespace App\Livewire\Patient;
 
 use Livewire\Component;
 use Livewire\Attributes\Layout;
-use App\Models\PatientReport;
-use Illuminate\Support\Facades\Auth;
+use App\Traits\ReportsTrait;
+use App\View\Components\Layouts\PatientLayout;
 
-#[Layout('components.layouts.patient-layout')]
+#[Layout(PatientLayout::class)]
 class PatientDailyReportList extends Component
 {
+    use ReportsTrait;
+
     public function redirectToDailyReportForm() {
         return redirect()->route('patient.daily-report-form');
     }
@@ -20,26 +22,9 @@ class PatientDailyReportList extends Component
 
     public function render()
     {
-        // Hard-coded patient ID as requested
-        $patientId = Auth::user()->usr_represented_agent;
-        $today = date('Y-m-d');
-        
-        // Check if patient already filled today's questionnaire
-        $todayReport = PatientReport::where('patient_pat_id', $patientId)
-            ->where('par_type', PatientReport::TYPE_DAILY)
-            ->whereDate('par_period_starts', $today)
-            ->first();
-        
-        // Get latest 10 daily reports for this patient
-        $dailyReports = PatientReport::where('patient_pat_id', $patientId)
-            ->where('par_type', PatientReport::TYPE_DAILY)
-            ->orderBy('par_period_starts', 'desc')
-            ->limit(10)
-            ->get();
-
         return view('livewire.patient.patient-daily-report-list', [
-            'dailyReports' => $dailyReports,
-            'todayReport' => $todayReport
+            'dailyReports' => $this->getLatestDailyReports(),
+            'todayReport' => $this->getTodayDailyReport()
         ]);
     }
 }

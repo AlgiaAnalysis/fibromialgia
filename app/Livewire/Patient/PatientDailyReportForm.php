@@ -11,8 +11,9 @@ use App\Models\PatientDomainReport;
 use App\Models\ReportAnswer;
 use TallStackUi\Traits\Interactions;
 use Illuminate\Support\Facades\Auth;
+use App\View\Components\Layouts\PatientLayout;
 
-#[Layout('components.layouts.patient-layout')]
+#[Layout(PatientLayout::class)]
 class PatientDailyReportForm extends Component
 {
     use Interactions;

@@ -46,6 +46,10 @@ class Login extends Component
         if($user->usr_role == User::ROLE_PATIENT) {
             return redirect()->route('patient.dashboard');
         }
+
+        if($user->usr_role == User::ROLE_DOCTOR) {
+            return redirect()->route('doctor.dashboard');
+        }
     }
 
     public function goToPatientSignUp() {

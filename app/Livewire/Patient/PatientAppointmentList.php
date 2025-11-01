@@ -4,12 +4,14 @@ namespace App\Livewire\Patient;
 
 use Livewire\Component;
 use Livewire\Attributes\Layout;
-use App\Models\Appointment;
-use Illuminate\Support\Facades\Auth;
+use App\Traits\ReportsTrait;
+use App\View\Components\Layouts\PatientLayout;
 
-#[Layout('components.layouts.patient-layout')]
+#[Layout(PatientLayout::class)]
 class PatientAppointmentList extends Component
 {
+    use ReportsTrait;
+
     public function redirectToAppointmentForm() {
         return redirect()->route('patient.appointment-form');
     }
@@ -20,23 +22,9 @@ class PatientAppointmentList extends Component
 
     public function render()
     {
-        $patientId = Auth::user()->usr_represented_agent;
-        $today = date('Y-m-d');
-        
-        // Check if patient already filled today's appointment
-        $todayAppointment = Appointment::where('patient_pat_id', $patientId)
-            ->whereDate('app_date', $today)
-            ->first();
-        
-        // Get latest 10 appointments for this patient
-        $appointments = Appointment::where('patient_pat_id', $patientId)
-            ->orderBy('app_date', 'desc')
-            ->limit(10)
-            ->get();
-
         return view('livewire.patient.patient-appointment-list', [
-            'appointments' => $appointments,
-            'todayAppointment' => $todayAppointment
+            'appointments' => $this->getLatestAppointments(),
+            'todayAppointment' => $this->getTodayAppointment()
         ]);
     }
 }

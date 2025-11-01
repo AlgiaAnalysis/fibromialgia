@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('questions', function (Blueprint $table) {
-            $table->bigIncrements('que_id');
-            $table->string('que_name');
-            $table->string('que_domain');
-            $table->integer('que_index');
-
-            $table->timestamps();
+        Schema::create('patient_domain_reports', function (Blueprint $table) {
+            $table->id('pdr_id');
+            $table->string('pdr_domain');
+            $table->integer('pdr_score');
+            $table->foreignId('pat_id')->constrained('patients', 'pat_id')->onDelete('cascade');
         });
     }
 
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('create_questions_tables');
+        Schema::dropIfExists('patient_domain_reports');
     }
 };

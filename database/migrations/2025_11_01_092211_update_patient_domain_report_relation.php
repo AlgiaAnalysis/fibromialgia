@@ -11,10 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('patient_domain_reports', function (Blueprint $table) {
-            $table->id('pdr_id');
-            $table->string('pdr_domain');
-            $table->integer('pdr_score');
+        Schema::table('patient_domain_reports', function (Blueprint $table) {
             $table->foreignId('patient_report_par_id')->constrained('patient_reports', 'par_id')->onDelete('cascade');
         });
     }
@@ -24,6 +21,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('patient_domain_reports');
+        //
     }
 };

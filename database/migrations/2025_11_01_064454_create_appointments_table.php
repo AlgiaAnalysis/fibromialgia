@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id('app_id');
             $table->date('app_date');
             $table->string('app_diagnosis');
-            $table->foreignId('pat_id')->constrained('patients', 'pat_id')->onDelete('cascade');
-            $table->foreignId('doc_id')->constrained('doctors', 'doc_id')->onDelete('cascade');
+            $table->foreignId('patient_pat_id')->constrained('patients', 'pat_id')->onDelete('cascade');
+            $table->foreignId('doctor_doc_id')->constrained('doctors', 'doc_id')->onDelete('cascade');
         });
     }
 

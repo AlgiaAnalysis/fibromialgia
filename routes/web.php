@@ -12,3 +12,4 @@ Route::get('doctor-sign-up', DoctorSignUp::class);
 
 //? Áreas que exigem autenticação
 Route::prefix('admin')->group(base_path('routes/admin.php'));
+Route::prefix('patient')->group(base_path('routes/patient.php'));

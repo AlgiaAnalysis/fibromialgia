@@ -26,6 +26,7 @@ class PatientReport extends Model
         "par_score",
         "par_cli_resume",
         "par_type",
+        "par_observation",
         "patient_pat_id",
     ];
 

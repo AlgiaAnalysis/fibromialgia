@@ -20,7 +20,6 @@
                         <h3 class="text-lg font-semibold text-blue-500/80">Acesso Rápido</h3>
                     </div>
                     
-                    <!-- Newsletters button - overlapping -->
                     <div class="absolute left-4 right-4 -bottom-12">
                         <div class="grid grid-cols-2 gap-4">
                             <button wire:click="showAllEditions" class="block w-full">

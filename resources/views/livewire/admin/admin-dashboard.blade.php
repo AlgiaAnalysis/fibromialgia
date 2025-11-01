@@ -10,7 +10,6 @@
                         <h3 class="text-lg font-semibold text-blue-500/80">Acesso Rápido</h3>
                     </div>
                     
-                    <!-- Newsletters button - overlapping -->
                     <div class="absolute left-4 right-4 -bottom-12">
                         <div class="grid grid-cols-2 gap-4">
                             <button wire:click="showAllEditions" class="block w-full">
@@ -155,7 +154,6 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Newsletters List Card -->
         <div class="bg-white rounded-lg shadow-md p-6 border border-gray-200">
             <div class="flex items-center justify-between mb-6">
                 <div class="flex items-center">
@@ -172,7 +170,6 @@
             </div>
         </div>
     
-        <!-- Newsletter Editions Card -->
         <div class="bg-white rounded-lg shadow-md p-6 border border-gray-200">
             <div class="flex items-center justify-between mb-6">
                 <div class="flex items-center">

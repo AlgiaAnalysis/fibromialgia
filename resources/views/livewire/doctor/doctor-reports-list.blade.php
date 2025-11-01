@@ -454,6 +454,45 @@
                     @endif
                 </div>
 
+                <!-- Patient Observation Section (Only for daily and fiqr reports) -->
+                @if(in_array($reportType, ['daily', 'fiqr']) && $reportData)
+                    <div class="mt-6 pt-6 border-t border-gray-200">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-blue-500/10 rounded-lg px-3 py-2 mr-3">
+                                <i class="fad fa-comment-alt text-blue-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800">Observações do Paciente</h3>
+                                <p class="text-sm text-gray-500">Observações registradas pelo paciente para este questionário</p>
+                            </div>
+                        </div>
+
+                        @if($reportData->par_observation && trim($reportData->par_observation) !== '')
+                            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                                <div class="flex items-start">
+                                    <div class="shrink-0">
+                                        <i class="fad fa-check-circle text-blue-500 text-xl"></i>
+                                    </div>
+                                    <div class="ml-3 flex-1">
+                                        <p class="text-gray-700 whitespace-pre-wrap leading-relaxed">{{ $reportData->par_observation }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        @else
+                            <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                                <div class="flex items-center">
+                                    <div class="shrink-0">
+                                        <i class="fad fa-info-circle text-gray-400 text-xl"></i>
+                                    </div>
+                                    <div class="ml-3">
+                                        <p class="text-gray-600 font-medium">O paciente não registrou observações para este questionário.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+                @endif
+
                 <!-- Medication Prescription Section (Only for daily and fiqr reports) -->
                 @if(in_array($reportType, ['daily', 'fiqr']))
                     <div class="mt-6 pt-6 border-t border-gray-200">

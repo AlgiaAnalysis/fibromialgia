@@ -23,6 +23,7 @@ class PatientFiqrReportForm extends Component
     public $reportId = null;
     public $existingReport = null;
     public $isViewMode = false;
+    public $observation = '';
 
     public function mount($id = null) {
         if ($id) {
@@ -76,6 +77,9 @@ class PatientFiqrReportForm extends Component
             ->first();
 
         if ($this->existingReport) {
+            // Load observation
+            $this->observation = $this->existingReport->par_observation ?? '';
+
             // Check if already answered (completed)
             if ($this->existingReport->par_status === PatientReport::STATUS_COMPLETED) {
                 $this->isViewMode = true;
@@ -176,6 +180,7 @@ class PatientFiqrReportForm extends Component
                 'par_period_end' => $today,
                 'par_status' => PatientReport::STATUS_PENDING,
                 'par_medication' => '',
+                'par_observation' => $this->observation ?? '',
                 'par_score' => 0,
                 'par_cli_resume' => '',
                 'par_type' => PatientReport::TYPE_FIQR,
@@ -185,8 +190,11 @@ class PatientFiqrReportForm extends Component
             $this->reportId = $patientReport->par_id;
         }
 
-        // Update PatientReport status to completed
-        $patientReport->update(['par_status' => PatientReport::STATUS_COMPLETED]);
+        // Update PatientReport status to completed and observation
+        $patientReport->update([
+            'par_status' => PatientReport::STATUS_COMPLETED,
+            'par_observation' => $this->observation ?? ''
+        ]);
 
         $finalScore = 0;
         // Create or update PatientDomainReports for each domain (no weekday)
@@ -300,8 +308,8 @@ class PatientFiqrReportForm extends Component
         $domainScores = [];
         
         // Get domain scores if report exists and is completed
-        if ($this->existingReport 
-            && $this->existingReport->par_status === PatientReport::STATUS_COMPLETED 
+        if ($this->existingReport
+            && $this->existingReport->par_status === PatientReport::STATUS_COMPLETED
             && $this->existingReport->patientDomainReports) {
             foreach ($this->existingReport->patientDomainReports as $domainReport) {
                 $domainKey = $this->getDomainKey($domainReport->pdr_domain);

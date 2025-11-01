@@ -12,11 +12,6 @@
         </a>
     </div>
 
-    <!-- Logo -->
-    <div class="flex justify-center mb-4 sm:mb-6">
-        <!-- <img src="{{ asset('images/spider_logo_transparent.png') }}" alt="WebNews" class="h-16 sm:h-20 w-auto" /> -->
-    </div>
-
     <div class="bg-white rounded-lg shadow-xl border border-gray-200 w-full max-w-sm sm:max-w-md lg:max-w-lg mx-auto">
         <div class="flex flex-row justify-between w-full mb-4 sm:mb-6 px-4 sm:px-6">
             <div class="flex-1">
@@ -205,7 +200,7 @@
     <!-- Footer -->
     <div class="mt-6 sm:mt-8 text-center px-4">
         <p class="text-xs text-gray-500">
-            © 2025 WebNews. Todos os direitos reservados.
+            © 2025 AlgiaAnalysis. Todos os direitos reservados.
         </p>
     </div>
 

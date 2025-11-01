@@ -85,6 +85,43 @@
                     </div>
                 @endif
             </div>
+
+            <!-- Observation Card (View Mode) -->
+            <div class="bg-white rounded-lg shadow-md border border-gray-200 p-6 mb-8">
+                <div class="flex items-center mb-4">
+                    <div class="bg-orange-500/10 rounded-lg px-4 py-3 mr-3">
+                        <i class="fad fa-comment-alt text-orange-500 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800">Minhas Observações</h3>
+                        <p class="text-sm text-gray-500">Observações sobre este questionário</p>
+                    </div>
+                </div>
+
+                @if($existingReport && $existingReport->par_observation && trim($existingReport->par_observation) !== '')
+                    <div class="bg-orange-50 border border-orange-200 rounded-lg p-4">
+                        <div class="flex items-start">
+                            <div class="shrink-0">
+                                <i class="fad fa-check-circle text-orange-500 text-xl"></i>
+                            </div>
+                            <div class="ml-3 flex-1">
+                                <p class="text-gray-700 whitespace-pre-wrap leading-relaxed">{{ $existingReport->par_observation }}</p>
+                            </div>
+                        </div>
+                    </div>
+                @else
+                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <div class="flex items-center">
+                            <div class="shrink-0">
+                                <i class="fad fa-info-circle text-gray-400 text-xl"></i>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-gray-600 font-medium">Nenhuma observação foi registrada para este questionário.</p>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            </div>
         @endif
 
         <!-- Questions List -->
@@ -162,6 +199,38 @@
                     <i class="fad fa-info-circle text-blue-500 mr-2"></i>
                     <p class="text-sm text-blue-700">
                         Nenhuma pergunta encontrada.
+                    </p>
+                </div>
+            </div>
+        @endif
+
+        <!-- Observation Field (Edit Mode) -->
+        @if(!$isViewMode)
+            <div class="bg-white rounded-lg shadow-md border border-gray-200 mt-6 p-6 mb-8">
+                <div class="flex items-center mb-4">
+                    <div class="bg-orange-500/10 rounded-lg px-4 py-3 mr-3">
+                        <i class="fad fa-comment-alt text-orange-500 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800">Minhas Observações</h3>
+                        <p class="text-sm text-gray-500">Adicione observações sobre este questionário (opcional)</p>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-gray-200 rounded-lg p-4">
+                    <label for="observation" class="block text-sm font-medium text-gray-700 mb-2">
+                        Observações
+                    </label>
+                    <textarea
+                        id="observation"
+                        wire:model="observation"
+                        rows="6"
+                        class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-200 focus:border-orange-500 transition-all duration-200 resize-vertical"
+                        placeholder="Digite suas observações sobre este questionário..."
+                    ></textarea>
+                    <p class="text-xs text-gray-500 mt-2">
+                        <i class="fad fa-info-circle mr-1"></i>
+                        As observações serão salvas quando você enviar o questionário
                     </p>
                 </div>
             </div>

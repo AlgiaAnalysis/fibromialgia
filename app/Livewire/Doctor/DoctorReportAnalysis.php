@@ -140,6 +140,7 @@ class DoctorReportAnalysis extends Component
                     'period_end' => $report->par_period_end,
                     'score' => $report->par_score,
                     'medication' => $report->par_medication,
+                    'observation' => $report->par_observation ?? '',
                     'clinical_resume' => $report->par_cli_resume,
                     'answers' => $answers,
                 ];
@@ -222,6 +223,7 @@ class DoctorReportAnalysis extends Component
                 $prompt .= "Status: {$report['status']}\n";
                 $prompt .= "Score total: " . ($report['score'] ?? 0) . "\n";
                 $prompt .= "Medicação: " . ($report['medication'] ?? 'N/A') . "\n";
+                $prompt .= "Observações do paciente: " . (!empty($report['observation']) ? $report['observation'] : 'Nenhuma observação registrada') . "\n";
                 $prompt .= "Resumo clínico: " . ($report['clinical_resume'] ?? 'N/A') . "\n";
                 $prompt .= "\nRespostas:\n";
                 

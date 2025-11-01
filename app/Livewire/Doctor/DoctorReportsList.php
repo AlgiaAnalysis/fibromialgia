@@ -66,6 +66,8 @@ class DoctorReportsList extends Component
 
         // Load detailed report data for modal if selected
         $reportData = null;
+        $domainScores = [];
+        
         if ($this->selectedReport && $this->reportType) {
             if ($this->reportType === 'daily') {
                 $reportData = PatientReport::where('par_id', $this->selectedReport)
@@ -73,10 +75,33 @@ class DoctorReportsList extends Component
                     ->with('patientDomainReports.reportAnswers.question')
                     ->first();
             } elseif ($this->reportType === 'fiqr') {
+                // Load report following the same pattern as PatientFiqrReportForm
                 $reportData = PatientReport::where('par_id', $this->selectedReport)
                     ->where('par_type', PatientReport::TYPE_FIQR)
-                    ->with('patientDomainReports.reportAnswers.question')
+                    ->with('patientDomainReports')
                     ->first();
+                
+                // Load reportAnswers with questions for each domain report
+                if ($reportData && $reportData->patientDomainReports) {
+                    $reportData->patientDomainReports->load('reportAnswers.question');
+                    
+                    // Prepare domain scores for display
+                    $domainNames = [
+                        'first_domain' => 'Função Física',
+                        'second_domain' => 'Impacto Geral',
+                        'third_domain' => 'Sintomas'
+                    ];
+                    
+                    foreach ($reportData->patientDomainReports as $domainReport) {
+                        $domainKey = $this->getDomainKey($domainReport->pdr_domain);
+                        if ($domainKey) {
+                            $domainScores[$domainKey] = [
+                                'name' => $domainNames[$domainReport->pdr_domain] ?? '',
+                                'score' => $domainReport->pdr_score ?? 0
+                            ];
+                        }
+                    }
+                }
             } elseif ($this->reportType === 'appointment') {
                 $reportData = Appointment::where('app_id', $this->selectedReport)
                     ->with('appointmentAnswers.question')
@@ -86,7 +111,19 @@ class DoctorReportsList extends Component
 
         return view('livewire.doctor.doctor-reports-list', [
             'doctorPatients' => $doctorPatients,
-            'reportData' => $reportData
+            'reportData' => $reportData,
+            'domainScores' => $domainScores
         ]);
+    }
+
+    private function getDomainKey($domain)
+    {
+        $domainMap = [
+            PatientDomainReport::DOMAIN_FIRST => 'first',
+            PatientDomainReport::DOMAIN_SECOND => 'second',
+            PatientDomainReport::DOMAIN_THIRD => 'third',
+        ];
+        
+        return $domainMap[$domain] ?? null;
     }
 }

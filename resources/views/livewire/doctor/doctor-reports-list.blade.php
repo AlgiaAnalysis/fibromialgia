@@ -36,13 +36,13 @@
                                     <h4 class="text-lg font-semibold text-gray-800">{{ $user->usr_name }}</h4>
                                     <p class="text-sm text-gray-600">{{ $user->usr_email }}</p>
                                     <div class="flex items-center mt-1">
-                                        <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full font-medium">
+                                        <span class="text-xs bg-orange-100 text-orange-600 px-2 py-1 rounded-full font-medium">
                                             {{ $dailyReports->count() }} Diários
                                         </span>
                                         <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full font-medium ml-2">
                                             {{ $fiqrReports->count() }} FIQR
                                         </span>
-                                        <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded-full font-medium ml-2">
+                                        <span class="text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded-full font-medium ml-2">
                                             {{ $appointments->count() }} Consultas
                                         </span>
                                     </div>
@@ -140,10 +140,10 @@
                                 </div>
 
                                 <!-- Appointments Column -->
-                                <div class="bg-green-50 rounded-lg p-4">
+                                <div class="bg-purple-50 rounded-lg p-4">
                                     <div class="flex items-center mb-4">
-                                        <div class="bg-green-500/20 rounded-lg px-3 py-2 mr-2">
-                                            <i class="fad fa-stethoscope text-green-500"></i>
+                                        <div class="bg-purple-500/20 rounded-lg px-3 py-2 mr-2">
+                                            <i class="fad fa-stethoscope text-purple-500"></i>
                                         </div>
                                         <h5 class="font-semibold text-gray-800">Consultas</h5>
                                     </div>
@@ -151,17 +151,17 @@
                                         <div class="space-y-2 max-h-64 overflow-y-auto">
                                             @foreach($appointments as $appointment)
                                                 <div wire:click="openReportModal({{ $appointment->app_id }}, 'appointment')"
-                                                     class="cursor-pointer bg-white rounded-lg p-3 hover:shadow-md transition-all duration-200 border border-green-200">
+                                                     class="cursor-pointer bg-white rounded-lg p-3 hover:shadow-md transition-all duration-200 border border-purple-200">
                                                     <div class="flex items-center justify-between">
                                                         <div>
-                                                            <span class="text-xs font-bold text-green-500">
+                                                            <span class="text-xs font-bold text-purple-500">
                                                                 {{ \Carbon\Carbon::parse($appointment->app_date)->format('d/m/Y') }}
                                                             </span>
                                                         </div>
                                                         <i wire:loading.remove wire:target="openReportModal({{ $appointment->app_id }}, 'appointment')"
-                                                            class="fad fa-eye text-green-500"></i>
+                                                            class="fad fa-eye text-purple-500"></i>
                                                         <i wire:loading wire:target="openReportModal({{ $appointment->app_id }}, 'appointment')"
-                                                            class="fad fa-spinner fa-spin text-green-500 text-xl"></i>
+                                                            class="fad fa-spinner fa-spin text-purple-500 text-xl"></i>
                                                     </div>
                                                 </div>
                                             @endforeach
@@ -225,8 +225,8 @@
                             </p>
                         @elseif($reportType === 'appointment')
                             <div class="flex items-center">
-                                <div class="bg-green-500/10 rounded-lg px-3 py-2 mr-3">
-                                    <i class="fad fa-stethoscope text-green-500"></i>
+                                <div class="bg-purple-500/10 rounded-lg px-3 py-2 mr-3">
+                                    <i class="fad fa-stethoscope text-purple-500"></i>
                                 </div>
                                 <h3 class="text-xl font-bold text-gray-800">Consulta Médica</h3>
                             </div>
@@ -239,6 +239,86 @@
                         <i class="fad fa-times text-xl"></i>
                     </button>
                 </div>
+
+                <!-- Score Cards -->
+                @if($reportType === 'daily' && $reportData && $reportData->par_score !== null)
+                    <div class="mb-6">
+                        <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg shadow-lg p-6 text-white">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="bg-white/20 rounded-lg px-4 py-3 mr-4">
+                                        <i class="fad fa-chart-line text-2xl"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-sm font-semibold text-orange-100 mb-1">Score do Questionário</h4>
+                                        <p class="text-xs text-orange-200">Pontuação total</p>
+                                    </div>
+                                </div>
+                                <span class="text-4xl font-bold">{{ number_format($reportData->par_score, 0) }}</span>
+                            </div>
+                        </div>
+                    </div>
+                @elseif($reportType === 'fiqr' && $reportData && $reportData->par_status === 'completed' && count($domainScores) > 0)
+                    <div class="mb-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <!-- Domain 1 Score -->
+                            @if(isset($domainScores['first']))
+                                <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg shadow-lg p-6 text-white">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <div class="bg-white/20 rounded-lg px-3 py-2">
+                                            <i class="fad fa-layer-group text-xl"></i>
+                                        </div>
+                                        <span class="text-3xl font-bold">{{ number_format($domainScores['first']['score'], 2) }}</span>
+                                    </div>
+                                    <h4 class="text-sm font-semibold text-blue-100 mb-1">{{ $domainScores['first']['name'] }}</h4>
+                                    <p class="text-xs text-blue-200">Score do Domínio</p>
+                                </div>
+                            @endif
+
+                            <!-- Domain 2 Score -->
+                            @if(isset($domainScores['second']))
+                                <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-lg shadow-lg p-6 text-white">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <div class="bg-white/20 rounded-lg px-3 py-2">
+                                            <i class="fad fa-layer-group text-xl"></i>
+                                        </div>
+                                        <span class="text-3xl font-bold">{{ number_format($domainScores['second']['score'], 2) }}</span>
+                                    </div>
+                                    <h4 class="text-sm font-semibold text-green-100 mb-1">{{ $domainScores['second']['name'] }}</h4>
+                                    <p class="text-xs text-green-200">Score do Domínio</p>
+                                </div>
+                            @endif
+
+                            <!-- Domain 3 Score -->
+                            @if(isset($domainScores['third']))
+                                <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg shadow-lg p-6 text-white">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <div class="bg-white/20 rounded-lg px-3 py-2">
+                                            <i class="fad fa-layer-group text-xl"></i>
+                                        </div>
+                                        <span class="text-3xl font-bold">{{ number_format($domainScores['third']['score'], 2) }}</span>
+                                    </div>
+                                    <h4 class="text-sm font-semibold text-purple-100 mb-1">{{ $domainScores['third']['name'] }}</h4>
+                                    <p class="text-xs text-purple-200">Score do Domínio</p>
+                                </div>
+                            @endif
+
+                            <!-- Total Score -->
+                            @if($reportData && $reportData->par_score !== null)
+                                <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg shadow-lg p-6 text-white">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <div class="bg-white/20 rounded-lg px-3 py-2">
+                                            <i class="fad fa-chart-line text-xl"></i>
+                                        </div>
+                                        <span class="text-3xl font-bold">{{ number_format($reportData->par_score, 2) }}</span>
+                                    </div>
+                                    <h4 class="text-sm font-semibold text-orange-100 mb-1">Score Final</h4>
+                                    <p class="text-xs text-orange-200">Total do Questionário</p>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                @endif
 
                 <!-- Answers Content -->
                 <div class="max-h-[60vh] overflow-y-auto">
@@ -271,7 +351,7 @@
                             @endforeach
                         @endif
                     @elseif($reportType === 'fiqr')
-                        @if($reportData->patientDomainReports && $reportData->patientDomainReports->count() > 0)
+                        @if($reportData && $reportData->patientDomainReports && $reportData->patientDomainReports->count() > 0)
                             @php
                                 $domains = ['first' => 'first_domain', 'second' => 'second_domain', 'third' => 'third_domain'];
                                 $domainNames = [
@@ -280,64 +360,86 @@
                                     'third_domain' => 'Sintomas'
                                 ];
                             @endphp
+                            @php
+                                $hasAnyAnswers = false;
+                            @endphp
                             @foreach($domains as $key => $domain)
                                 @php
-                                    $domainReport = $reportData->patientDomainReports->firstWhere('pdr_domain', $domain);
+                                    $domainReports = $reportData->patientDomainReports
+                                        ->where('pdr_domain', $domain)
+                                        ->filter(function($dr) {
+                                            return $dr->reportAnswers && $dr->reportAnswers->count() > 0;
+                                        })
+                                        ->values();
+                                    if ($domainReports->count() > 0) {
+                                        $hasAnyAnswers = true;
+                                    }
                                 @endphp
-                                @if($domainReport && $domainReport->reportAnswers->count() > 0)
+                                @if($domainReports->count() > 0)
                                     <div class="mb-6">
                                         <!-- Domain Header -->
                                         <div class="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg p-4 mb-4">
                                             <h4 class="text-lg font-bold text-white">{{ $domainNames[$domain] }}</h4>
-                                            @if($domainReport->pdr_weekday)
-                                                <p class="text-sm text-blue-100">
-                                                    Dia: {{ ucfirst($domainReport->pdr_weekday) }}
-                                                </p>
-                                            @endif
                                         </div>
                                         
                                         <!-- Domain Answers -->
-                                        @foreach($domainReport->reportAnswers as $answer)
-                                            <div class="bg-white border border-gray-200 rounded-lg p-4 mb-3 hover:shadow-md transition-all duration-200">
-                                                <div class="flex items-start">
-                                                    <div class="bg-blue-500/10 rounded-lg px-3 py-2 mr-3">
-                                                        <i class="fad fa-question-circle text-blue-500"></i>
-                                                    </div>
-                                                    <div class="flex-1">
-                                                        <div class="flex items-center justify-between mb-2">
-                                                            <h5 class="font-semibold text-gray-800">{{ $answer->question->que_name }}</h5>
-                                                            <span class="bg-blue-100 text-blue-600 text-xs font-semibold px-2 py-1 rounded-full">
-                                                                #{{ $answer->question->que_index }}
-                                                            </span>
-                                                        </div>
-                                                        <div class="mt-3 bg-gray-50 rounded-lg p-3">
-                                                            <div class="flex items-center">
-                                                                <span class="text-2xl font-bold {{ $answer->rea_value >= 7 ? 'text-red-600' : ($answer->rea_value >= 4 ? 'text-orange-600' : 'text-green-600') }}">
-                                                                    {{ $answer->rea_value }}
-                                                                </span>
-                                                                <span class="text-sm text-gray-600 ml-2">/ 10</span>
+                                        @foreach($domainReports as $domainReport)
+                                            @if($domainReport->reportAnswers && $domainReport->reportAnswers->count() > 0)
+                                                @foreach($domainReport->reportAnswers as $answer)
+                                                    <div class="bg-white border border-gray-200 rounded-lg p-4 mb-3 hover:shadow-md transition-all duration-200">
+                                                        <div class="flex items-start">
+                                                            <div class="bg-blue-500/10 rounded-lg px-3 py-2 mr-3">
+                                                                <i class="fad fa-question-circle text-blue-500"></i>
+                                                            </div>
+                                                            <div class="flex-1">
+                                                                <div class="flex items-center justify-between mb-2">
+                                                                    <h5 class="font-semibold text-gray-800">{{ $answer->question->que_name }}</h5>
+                                                                    <span class="bg-blue-100 text-blue-600 text-xs font-semibold px-2 py-1 rounded-full">
+                                                                        #{{ $answer->question->que_index }}
+                                                                    </span>
+                                                                </div>
+                                                                <div class="mt-3 bg-gray-50 rounded-lg p-3">
+                                                                    <div class="flex items-center">
+                                                                        <span class="text-2xl font-bold {{ $answer->rea_value >= 7 ? 'text-red-600' : ($answer->rea_value >= 4 ? 'text-orange-600' : 'text-green-600') }}">
+                                                                            {{ $answer->rea_value }}
+                                                                        </span>
+                                                                        <span class="text-sm text-gray-600 ml-2">/ 10</span>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
+                                                @endforeach
+                                            @endif
                                         @endforeach
                                     </div>
                                 @endif
                             @endforeach
+                            
+                            @if(!$hasAnyAnswers)
+                                <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 text-center">
+                                    <i class="fad fa-info-circle text-blue-500 text-3xl mb-3"></i>
+                                    <p class="text-blue-700 font-medium">Este questionário FIQR ainda não possui respostas preenchidas.</p>
+                                </div>
+                            @endif
+                        @else
+                            <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 text-center">
+                                <i class="fad fa-info-circle text-blue-500 text-3xl mb-3"></i>
+                                <p class="text-blue-700 font-medium">Não foi possível carregar os dados do questionário FIQR.</p>
+                            </div>
                         @endif
                     @elseif($reportType === 'appointment')
                         @if($reportData->appointmentAnswers && $reportData->appointmentAnswers->count() > 0)
                             @foreach($reportData->appointmentAnswers as $answer)
                                 <div class="bg-white border border-gray-200 rounded-lg p-4 mb-4 hover:shadow-md transition-all duration-200">
                                     <div class="flex items-start">
-                                        <div class="bg-green-500/10 rounded-lg px-3 py-2 mr-3">
-                                            <i class="fad fa-question-circle text-green-500"></i>
+                                        <div class="bg-purple-500/10 rounded-lg px-3 py-2 mr-3">
+                                            <i class="fad fa-question-circle text-purple-500"></i>
                                         </div>
                                         <div class="flex-1">
                                             <div class="flex items-center justify-between mb-2">
                                                 <h4 class="font-semibold text-gray-800">{{ $answer->question->que_name }}</h4>
-                                                <span class="bg-green-100 text-green-600 text-xs font-semibold px-2 py-1 rounded-full">
+                                                <span class="bg-purple-100 text-purple-600 text-xs font-semibold px-2 py-1 rounded-full">
                                                     #{{ $answer->question->que_index }}
                                                 </span>
                                             </div>

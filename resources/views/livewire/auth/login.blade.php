@@ -94,22 +94,7 @@
     <div class="mt-6 w-full max-w-sm sm:max-w-md mx-auto">
         <div class="text-center mb-4">
             <p class="text-sm text-gray-600 mb-3">Ainda não tem uma conta?</p>
-            <div class="flex flex-col gap-3">
-                <!-- Botão Cadastro de Paciente -->
-                <button wire:click="goToPatientSignUp"
-                   class="flex-1 hover:cursor-pointer inline-flex items-center justify-center px-4 py-3 text-white hover:text-orange-400 bg-orange-400/60 border border-orange-300 hover:bg-orange-50 hover:border-orange-400 font-semibold rounded-lg transition-colors duration-200 shadow-sm hover:shadow-md">
-                    <i
-                        wire:loading.remove
-                        wire:target="goToPatientSignUp"
-                        class="fad fa-user-injured mr-2 text-sm"></i>
-                    <i
-                        wire:loading
-                        wire:target="goToPatientSignUp"
-                        class="fad fa-spinner fa-spin mr-2 text-sm"></i>
-                    <span wire:loading.remove wire:target="goToPatientSignUp" class="text-sm">Cadastro de Paciente</span>
-                    <span wire:loading wire:target="goToPatientSignUp" class="text-sm">Processando...</span>
-                </button>
-                
+            <div class="flex flex-col gap-3">                
                 <!-- Botão Cadastro de Médico -->
                 <button wire:click="goToDoctorSignUp"
                    class="flex-1 hover:cursor-pointer inline-flex items-center justify-center px-4 py-3 text-white hover:text-blue-600 bg-blue-600/60 border border-blue-300 hover:bg-blue-50 hover:border-blue-400 font-semibold rounded-lg transition-colors duration-200 shadow-sm hover:shadow-md">

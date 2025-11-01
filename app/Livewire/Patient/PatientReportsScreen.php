@@ -20,8 +20,8 @@ class PatientReportsScreen extends Component
         return redirect()->route('patient.daily-report-form', ['id' => $reportId]);
     }
 
-    public function viewFiqrReportDay($reportId, $weekday) {
-        return redirect()->route('patient.fiqr-report-form', ['id' => $reportId, 'weekday' => $weekday]);
+    public function viewFiqrReport($reportId) {
+        return redirect()->route('patient.fiqr-report-form', ['id' => $reportId]);
     }
 
     public function redirectToAppointmentForm() {
@@ -42,9 +42,7 @@ class PatientReportsScreen extends Component
             'fiqrReports' => $this->getLatestFiqrReports(5),
             'currentFiqrReport' => $currentFiqrReport,
             'appointments' => $this->getLatestAppointments(5),
-            'todayAppointment' => $this->getTodayAppointment(),
-            'weekDays' => $this->getWeekDays(),
-            'dayStatuses' => $this->getFiqrDayStatuses($currentFiqrReport)
+            'todayAppointment' => $this->getTodayAppointment()
         ]);
     }
 }

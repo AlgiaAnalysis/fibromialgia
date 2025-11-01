@@ -93,6 +93,7 @@ class PatientDailyReportForm extends Component
             'patient_report_par_id' => $patientReport->par_id,
         ]);
 
+        $finalScore = 0;
         // Create ReportAnswers for each question
         foreach ($this->answers as $questionId => $value) {
             ReportAnswer::create([
@@ -101,7 +102,16 @@ class PatientDailyReportForm extends Component
                 'patient_domain_report_pdr_id' => $patientDomainReport->pdr_id,
                 'question_que_id' => $questionId,
             ]);
+
+            if($questionId == 52) {
+                continue;
+            }
+
+            $finalScore += $value;
         }
+
+        $patientDomainReport->update(['pdr_score' => $finalScore]);
+        $patientReport->update(['par_score' => $finalScore]);
 
         $this->toast()->success('Questionário enviado com sucesso!')->send();
         return $this->redirect(route('patient.daily-report'));

@@ -7,22 +7,13 @@
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold text-blue-500/80">Questionário FIQR</h3>
-                    @php
-                        $dayNames = [
-                            'Monday' => 'Segunda-feira',
-                            'Tuesday' => 'Terça-feira',
-                            'Wednesday' => 'Quarta-feira',
-                            'Thursday' => 'Quinta-feira',
-                            'Friday' => 'Sexta-feira',
-                            'Saturday' => 'Sábado',
-                            'Sunday' => 'Domingo'
-                        ];
-                        $dayName = $dayNames[$weekday] ?? $weekday;
-                    @endphp
                     @if($isViewMode && $existingReport)
-                        <p class="text-sm text-gray-500">Visualização do {{ $dayName }}</p>
+                        <p class="text-sm text-gray-500">Visualização do questionário</p>
+                        @if($existingReport->par_period_starts)
+                            <p class="text-xs text-gray-400">{{ \Carbon\Carbon::parse($existingReport->par_period_starts)->format('d/m/Y') }}</p>
+                        @endif
                     @else
-                        <p class="text-sm text-gray-500">Preencha o questionário para {{ $dayName }}</p>
+                        <p class="text-sm text-gray-500">Preencha o questionário completo</p>
                     @endif
                 </div>
             </div>
@@ -42,6 +33,65 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Scores Cards -->
+            @if($existingReport && $existingReport->par_status === 'completed')
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                    <!-- Domain 1 Score -->
+                    @if(isset($domainScores['first']))
+                        <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg shadow-lg p-6 text-white">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="bg-white/20 rounded-lg px-3 py-2">
+                                    <i class="fad fa-layer-group text-xl"></i>
+                                </div>
+                                <span class="text-3xl font-bold">{{ number_format($domainScores['first']['score'], 2) }}</span>
+                            </div>
+                            <h4 class="text-sm font-semibold text-blue-100 mb-1">{{ $domainScores['first']['name'] }}</h4>
+                            <p class="text-xs text-blue-200">Score do Domínio</p>
+                        </div>
+                    @endif
+
+                    <!-- Domain 2 Score -->
+                    @if(isset($domainScores['second']))
+                        <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-lg shadow-lg p-6 text-white">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="bg-white/20 rounded-lg px-3 py-2">
+                                    <i class="fad fa-layer-group text-xl"></i>
+                                </div>
+                                <span class="text-3xl font-bold">{{ number_format($domainScores['second']['score'], 2) }}</span>
+                            </div>
+                            <h4 class="text-sm font-semibold text-green-100 mb-1">{{ $domainScores['second']['name'] }}</h4>
+                            <p class="text-xs text-green-200">Score do Domínio</p>
+                        </div>
+                    @endif
+
+                    <!-- Domain 3 Score -->
+                    @if(isset($domainScores['third']))
+                        <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg shadow-lg p-6 text-white">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="bg-white/20 rounded-lg px-3 py-2">
+                                    <i class="fad fa-layer-group text-xl"></i>
+                                </div>
+                                <span class="text-3xl font-bold">{{ number_format($domainScores['third']['score'], 2) }}</span>
+                            </div>
+                            <h4 class="text-sm font-semibold text-purple-100 mb-1">{{ $domainScores['third']['name'] }}</h4>
+                            <p class="text-xs text-purple-200">Score do Domínio</p>
+                        </div>
+                    @endif
+
+                    <!-- Total Score -->
+                    <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg shadow-lg p-6 text-white">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="bg-white/20 rounded-lg px-3 py-2">
+                                <i class="fad fa-chart-line text-xl"></i>
+                            </div>
+                            <span class="text-3xl font-bold">{{ number_format($existingReport->par_score ?? 0, 2) }}</span>
+                        </div>
+                        <h4 class="text-sm font-semibold text-orange-100 mb-1">Score Final</h4>
+                        <p class="text-xs text-orange-200">Total do Questionário</p>
+                    </div>
+                </div>
+            @endif
         @endif
 
         <!-- Questions List by Domain -->

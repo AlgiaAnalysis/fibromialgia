@@ -1,4 +1,14 @@
 <div class="py-8 pt-4">
+    @php
+        function convertMdToHtml($md) {
+            return \Illuminate\Support\Str::markdown($md, [
+                'html_input' => 'strip',
+                'allow_unsafe_links' => false,
+                'max_nesting_level' => 5,
+            ]);
+        }
+    @endphp
+
     <div class="w-full">
         <!-- Top row with 3 equal-sized cards -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6 mt-6">
@@ -121,7 +131,7 @@
                                 <button
                                     wire:click="goToLinkPatient"
                                     class="bg-yellow-500 hover:cursor-pointer text-white px-4 py-2 rounded-lg">
-                                    <i 
+                                    <i
                                         wire:loading.remove
                                         wire:target="goToLinkPatient"
                                         class="fad fa-link text-white text-xl mr-2"></i>
@@ -150,84 +160,191 @@
     </div>
 
     <div class="flex items-center my-8">
-        <div class="flex-grow h-px bg-orange-300"></div>
+        <div class="grow h-px bg-gray-300"></div>
             <div class="mx-6">
-                <i class="fad fa-heartbeat text-orange-400 text-2xl"></i>
+                <i class="fad fa-heartbeat text-gray-400 text-2xl"></i>
             </div>
-        <div class="flex-grow h-px bg-orange-300"></div>
+        <div class="grow h-px bg-gray-300"></div>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Newsletters List Card -->
+        <!-- AI Analyses Card -->
+        <div class="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center">
+                    <div class="bg-purple-500/10 rounded-lg px-4 py-3 mr-3">
+                        <i class="fad fa-brain text-purple-500 text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800">Análises de IA</h3>
+                        <p class="text-sm text-gray-500">
+                            @if($selectedPatientName)
+                                Análises de {{ $selectedPatientName }}
+                            @else
+                                Selecione um paciente para ver as análises
+                            @endif
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            @if($expandedPatientId && !empty($analysesList))
+                <div class="space-y-4">
+                    @foreach($analysesList as $analysis)
+                        <div 
+                            wire:click="openAnalysisModal({{ $analysis['id'] }})"
+                            class="cursor-pointer bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg border border-purple-200 p-5 hover:shadow-lg transition-all duration-200 hover:border-purple-400">
+                            <div class="flex items-start justify-between mb-3">
+                                <div class="flex items-center">
+                                    <div class="bg-purple-500/20 rounded-lg px-3 py-2 mr-3">
+                                        <i class="fad fa-brain text-purple-600"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">Análise Comparativa</h4>
+                                        <p class="text-xs text-gray-600 mt-1">
+                                            {{ $analysis['reportCount'] }} questionário(s) • 
+                                            {{ $analysis['earliestDate'] }} até {{ $analysis['latestDate'] }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <i class="fad fa-chevron-right text-purple-400 text-xl"></i>
+                            </div>
+                            <div class="mt-3 prose prose-sm max-w-none">
+                                <div class="text-gray-700 text-sm markdown-preview" data-markdown="{{ htmlspecialchars($analysis['preview']) }}"></div>
+                            </div>
+                            <div class="mt-3 pt-3 border-t border-purple-200">
+                                <span class="text-xs text-purple-600 font-medium">Clique para ver análise completa →</span>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <div class="bg-gray-50 border border-gray-200 rounded-lg p-8 text-center">
+                    <div class="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fad fa-brain text-gray-400 text-3xl"></i>
+                    </div>
+                    <p class="text-gray-600 font-medium mb-1">Nenhuma análise disponível</p>
+                    <p class="text-sm text-gray-500">
+                        @if($expandedPatientId)
+                            Este paciente ainda não possui análises geradas. Gere análises na tela de Análise Comparativa.
+                        @else
+                            Selecione um paciente na lista ao lado para visualizar as análises
+                        @endif
+                    </p>
+                </div>
+            @endif
+        </div>
+    
+        <!-- Patients List Card -->
         <div class="bg-white rounded-lg shadow-md p-6 border border-gray-200">
             <div class="flex items-center justify-between mb-6">
                 <div class="flex items-center">
                     <div class="bg-blue-500/10 rounded-lg px-4 py-3 mr-3">
-                        <i class="fad fa-chart-bar text-blue-500 text-lg"></i>
+                        <i class="fad fa-user-injured text-blue-500 text-lg"></i>
                     </div>
                     <div>
-                        <h3 class="text-lg font-semibold text-gray-800">Análises Gerais</h3>
+                        <h3 class="text-lg font-semibold text-gray-800">Lista de Pacientes</h3>
                         <p class="text-sm text-gray-500">
-                            Veja as análises gerais do sistema
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    
-        <!-- Newsletter Editions Card -->
-        <div class="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-            <div class="flex items-center justify-between mb-6">
-                <div class="flex items-center">
-                    <div class="bg-orange-500/10 rounded-lg px-4 py-3 mr-3">
-                        <i class="fad fa-exclamation-circle text-orange-500 text-lg"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-semibold text-gray-800">Pacientes Críticos</h3>
-                        <p class="text-sm text-gray-500">
-                            Veja os pacientes críticos do sistema
+                            Visualize os pacientes vinculados
                         </p>
                     </div>
                 </div>
             </div>
 
-            <div class="flex flex-col gap-6">
-                <div class="flex flex-row justify-between bg-white rounded-lg shadow-md w-full p-6 border border-gray-200">
-                    <div class="flex items-center">
-                        <div class="w-12 h-12 rounded-lg bg-orange-500/10 border border-orange-200 flex items-center justify-center">
-                            <i class="fad fa-user-injured text-2xl text-orange-500"></i>
+            @if($patientsList && count($patientsList) > 0)
+                <div class="space-y-4">
+                    @foreach($patientsList as $patient)
+                        @php
+                            $isSelected = $expandedPatientId === $patient['id'];
+                        @endphp
+                        <div wire:click="selectPatient({{ $patient['id'] }})"
+                             class="cursor-pointer bg-white rounded-lg shadow-md border-2 p-5 transition-all duration-200 hover:shadow-lg {{ $isSelected ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-blue-300' }}">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center flex-1">
+                                    <div class="w-12 h-12 rounded-lg bg-blue-500/10 border border-blue-200 flex items-center justify-center">
+                                        <i class="fad fa-user-injured text-2xl text-blue-500"></i>
+                                    </div>
+                                    <div class="ml-4">
+                                        <h4 class="text-base font-semibold text-gray-800">{{ $patient['name'] }}</h4>
+                                        <p class="text-sm text-gray-600">{{ $patient['email'] }}</p>
+                                        @if($patient['lastDailyScore'] !== null)
+                                            <div class="flex items-center mt-1">
+                                                <span class="text-xs text-gray-500 mr-2">Último Score Diário:</span>
+                                                <span class="text-lg font-bold text-orange-500">{{ number_format($patient['lastDailyScore'], 0) }}</span>
+                                                @if($patient['lastDailyDate'])
+                                                    <span class="text-xs text-gray-500 ml-2">
+                                                        ({{ \Carbon\Carbon::parse($patient['lastDailyDate'])->format('d/m/Y') }})
+                                                    </span>
+                                                @endif
+                                            </div>
+                                        @else
+                                            <span class="text-xs text-gray-400 mt-1">Sem questionários diários</span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="ml-4">
+                                    <i wire:loading.remove wire:target="selectPatient({{ $patient['id'] }})"
+                                        class="fad {{ $isSelected ? 'fa-check-circle' : 'fa-circle' }} {{ $isSelected ? 'text-blue-500' : 'text-gray-300' }} text-xl"></i>
+                                    <i wire:loading wire:target="selectPatient({{ $patient['id'] }})"
+                                        class="fad fa-spinner fa-spin text-gray-400 text-xl"></i>
+                                </div>
+                            </div>
                         </div>
-                        <div class="ml-4">
-                            <h4 class="text-sm font-medium text-gray-500">João da Silva</h4>
-                            <span class="text-lg font-bold text-orange-500">Score: 6.8</span>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
-
-                <div class="flex flex-row justify-between bg-white rounded-lg shadow-md w-full p-6 border border-gray-200">
-                    <div class="flex items-center">
-                        <div class="w-12 h-12 rounded-lg bg-orange-500/10 border border-orange-200 flex items-center justify-center">
-                            <i class="fad fa-user-injured text-2xl text-orange-500"></i>
-                        </div>
-                        <div class="ml-4">
-                            <h4 class="text-sm font-medium text-gray-500">João da Silva</h4>
-                            <span class="text-lg font-bold text-orange-500">Score: 6.8</span>
-                        </div>
+            @else
+                <div class="bg-gray-50 border border-gray-200 rounded-lg p-8 text-center">
+                    <div class="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fad fa-user-injured text-gray-400 text-3xl"></i>
                     </div>
+                    <p class="text-gray-600 font-medium mb-1">Nenhum paciente encontrado</p>
+                    <p class="text-sm text-gray-500">Vincule pacientes para visualizar suas informações</p>
                 </div>
-
-                <div class="flex flex-row justify-between bg-white rounded-lg shadow-md w-full p-6 border border-gray-200">
-                    <div class="flex items-center">
-                        <div class="w-12 h-12 rounded-lg bg-orange-500/10 border border-orange-200 flex items-center justify-center">
-                            <i class="fad fa-user-injured text-2xl text-orange-500"></i>
-                        </div>
-                        <div class="ml-4">
-                            <h4 class="text-sm font-medium text-gray-500">João da Silva</h4>
-                            <span class="text-lg font-bold text-orange-500">Score: 6.8</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endif
         </div>
     </div>
+
+    <!-- Analysis Modal -->
+    <x-ts-modal
+        wire="showAnalysisModal"
+        title="Análise Comparativa Completa"
+        size="4xl"
+        center
+    >
+        @if($selectedAnalysis)
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-200">
+                    <div class="flex items-center">
+                        <div class="bg-purple-500/10 rounded-lg px-4 py-3 mr-3">
+                            <i class="fad fa-brain text-purple-500 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-800">Análise Gerada por IA</h3>
+                            <p class="text-sm text-gray-600 mt-1">Análise comparativa de questionários</p>
+                        </div>
+                    </div>
+                    <button wire:click="closeAnalysisModal" class="text-gray-400 hover:text-gray-600">
+                        <i class="fad fa-times text-xl"></i>
+                    </button>
+                </div>
+
+                <div class="max-h-[70vh] overflow-y-auto">
+                    <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-6 border border-purple-200">
+                        <div class="prose prose-purple max-w-none markdown-content" id="analysisContent">
+                            {!! convertMdToHtml($selectedAnalysis->rec_ia_analysis) !!}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <x-slot:footer>
+                <div class="mt-6 pt-4 border-t border-gray-200 flex justify-end">
+                    <button wire:click="closeAnalysisModal" class="px-6 py-2 bg-gray-200 text-gray-700 hover:bg-gray-300 font-semibold rounded-lg transition-colors">
+                        Fechar
+                    </button>
+                </div>
+            </x-slot:footer>
+        @endif
+    </x-ts-modal>
+</div>
 </div>

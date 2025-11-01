@@ -123,56 +123,26 @@
                         <div class="grow h-px bg-gray-300/60"></div>
                     </div>
 
+                    <!-- FIQR Status -->
                     @if($currentFiqrReport)
-                        <!-- Period Info -->
-                        <div class="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg p-3 mb-4">
+                        <div wire:click="viewFiqrReport({{ $currentFiqrReport->par_id }})"
+                                class="flex items-center justify-between hover:cursor-pointer rounded-lg p-3 transition-all duration-200 bg-green-50 border border-green-300 mb-4">
                             <div class="flex items-center">
-                                <div class="bg-white/20 rounded-lg px-2 py-1 mr-2">
-                                    <i class="fad fa-calendar-week text-white text-sm"></i>
+                                <div class="w-8 h-8 rounded flex items-center justify-center mr-3 bg-green-500/20">
+                                    <i class="fad fa-check-circle text-green-500"></i>
                                 </div>
                                 <div>
-                                    <h4 class="text-xs font-semibold text-white">Período Atual</h4>
-                                    <p class="text-xs text-blue-100">
-                                        {{ \Carbon\Carbon::parse($currentFiqrReport->par_period_starts)->format('d/m') }}
-                                        - {{ \Carbon\Carbon::parse($currentFiqrReport->par_period_end)->format('d/m') }}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Week Days Status -->
-                        <div class="space-y-2 mb-4">
-                            @foreach($weekDays as $day)
-                                @php
-                                    $dayName = $day; // Shortened version
-                                    $dayNames = [
-                                        'Monday' => 'Seg', 'Tuesday' => 'Ter', 'Wednesday' => 'Qua',
-                                        'Thursday' => 'Qui', 'Friday' => 'Sex', 'Saturday' => 'Sáb', 'Sunday' => 'Dom'
-                                    ];
-                                    $dayName = $dayNames[$day] ?? $day;
-                                    $isFilled = isset($dayStatuses[$day]) && $dayStatuses[$day];
-                                @endphp
-                                <div wire:click="viewFiqrReportDay({{ $currentFiqrReport->par_id }}, '{{ $day }}')"
-                                     class="flex items-center justify-between hover:cursor-pointer rounded-lg p-2 transition-all duration-200
-                                     {{ $isFilled ? 'bg-green-50 border border-green-300' : 'bg-blue-50 border border-blue-200' }}">
-                                    <div class="flex items-center">
-                                        <div class="w-6 h-6 rounded flex items-center justify-center mr-2 {{ $isFilled ? 'bg-green-500/20' : 'bg-blue-500/20' }}">
-                                            <i wire:loading.remove wire:target="viewFiqrReportDay({{ $currentFiqrReport->par_id }}, '{{ $day }}')"
-                                            class="fad {{ $isFilled ? 'fa-check-circle' : 'fa-calendar-day' }} text-xs {{ $isFilled ? 'text-green-500' : 'text-blue-500' }}"></i>
-                                            <i wire:loading wire:target="viewFiqrReportDay({{ $currentFiqrReport->par_id }}, '{{ $day }}')"
-                                            class="fad fa-spinner fa-spin text-blue-500 text-sm"></i>
-                                        </div>
-                                        <span class="text-xs font-medium text-gray-700">{{ $dayName }}</span>
-                                    </div>
-                                    <span class="text-xs {{ $isFilled ? 'text-green-600' : 'text-orange-600' }} font-medium">
-                                        {{ $isFilled ? '✓' : '⏳' }}
+                                    <span class="text-sm font-medium text-gray-700 block">Último FIQR Completo</span>
+                                    <span class="text-xs text-gray-500">
+                                        {{ \Carbon\Carbon::parse($currentFiqrReport->par_period_starts)->format('d/m/Y') }}
                                     </span>
                                 </div>
-                            @endforeach
+                            </div>
+                            <i class="fad fa-chevron-right text-green-600"></i>
                         </div>
                     @else
-                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                            <p class="text-xs text-blue-700 text-center">Nenhum FIQR disponível</p>
+                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4">
+                            <p class="text-xs text-blue-700 text-center">Você ainda não possui questionários FIQR</p>
                         </div>
                     @endif
 

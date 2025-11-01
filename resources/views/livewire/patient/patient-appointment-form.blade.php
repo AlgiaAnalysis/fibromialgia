@@ -2,11 +2,11 @@
     <div class="w-full">
         <div class="flex items-center justify-between mb-6">
             <div class="flex items-center">
-                <div class="bg-green-500/10 rounded-lg px-5 py-4 mr-3">
-                    <i class="fad fa-stethoscope text-green-500 text-2xl"></i>
+                <div class="bg-purple-500/10 rounded-lg px-5 py-4 mr-3">
+                    <i class="fad fa-stethoscope text-purple-500 text-2xl"></i>
                 </div>
                 <div>
-                    <h3 class="text-lg font-semibold text-green-500/80">Consulta Médica</h3>
+                    <h3 class="text-lg font-semibold text-purple-500/80">Consulta Médica</h3>
                     @if($isViewMode && $existingAppointment)
                         <p class="text-sm text-gray-500">Visualização da consulta de {{ \Carbon\Carbon::parse($existingAppointment->app_date)->format('d/m/Y') }}</p>
                     @else
@@ -39,15 +39,15 @@
                     <div class="bg-white rounded-lg shadow-md border border-gray-200 p-6 relative">
                         <!-- Question Name -->
                         <div class="mb-4 flex items-center">
-                            <div class="bg-green-500/10 rounded-lg px-3 py-2 mr-3">
-                                <i class="fad fa-question-circle text-green-500 text-xl"></i>
+                            <div class="bg-purple-500/10 rounded-lg px-3 py-2 mr-3">
+                                <i class="fad fa-question-circle text-purple-500 text-xl"></i>
                             </div>
                             <h4 class="text-base font-semibold text-gray-800">{{ $question->que_name }}</h4>
                         </div>
 
                         <!-- Question Index Badge -->
                         <div class="absolute top-6 right-6">
-                            <span class="bg-green-100 text-green-600 text-xs font-semibold px-3 py-1 rounded-full">
+                            <span class="bg-purple-100 text-purple-600 text-xs font-semibold px-3 py-1 rounded-full">
                                 #{{ $question->que_index }}
                             </span>
                         </div>
@@ -60,8 +60,8 @@
                                 wire:change="updateAnswer({{ $question->que_id }}, $event.target.value)"
                                 rows="4"
                                 class="w-full px-4 py-3 border-2 rounded-lg transition-all duration-200 resize-vertical
-                                    focus:outline-none focus:ring-2 focus:ring-green-200
-                                    @if(!$isViewMode) border-gray-300 focus:border-green-500 @else border-gray-200 bg-gray-50 opacity-75 cursor-not-allowed @endif">
+                                    focus:outline-none focus:ring-2 focus:ring-purple-200
+                                    @if(!$isViewMode) border-gray-300 focus:border-purple-500 @else border-gray-200 bg-gray-50 opacity-75 cursor-not-allowed @endif">
                             </textarea>
                         </div>
                     </div>
@@ -107,7 +107,7 @@
                 <button
                     wire:click="submitForm"
                     wire:loading.attr="disabled"
-                    class="flex-1 px-6 py-4 hover:cursor-pointer bg-green-500 text-white hover:bg-green-600 font-semibold rounded-lg transition-all duration-200 flex items-center justify-center disabled:opacity-50 shadow-md">
+                    class="flex-1 px-6 py-4 hover:cursor-pointer bg-purple-500 text-white hover:bg-purple-600 font-semibold rounded-lg transition-all duration-200 flex items-center justify-center disabled:opacity-50 shadow-md">
                     <i class="fad fa-paper-plane mr-2" wire:loading.remove wire:target="submitForm"></i>
                     <i class="fad fa-spinner fa-spin mr-2" wire:loading wire:target="submitForm"></i>
                     <span wire:loading.remove wire:target="submitForm">Registrar Consulta</span>

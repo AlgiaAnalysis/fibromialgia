@@ -45,6 +45,7 @@ trait ReportsTrait
         
         return PatientReport::where('patient_pat_id', $patientId)
             ->where('par_type', PatientReport::TYPE_FIQR)
+            ->where('par_status', PatientReport::STATUS_COMPLETED)
             ->with('patientDomainReports.reportAnswers')
             ->orderBy('par_period_starts', 'desc')
             ->first();
@@ -64,34 +65,6 @@ trait ReportsTrait
             ->get();
     }
 
-    /**
-     * Get FIQR day statuses for current report
-     */
-    protected function getFiqrDayStatuses($currentFiqrReport)
-    {
-        $weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-        $dayStatuses = [];
-        
-        foreach ($weekDays as $day) {
-            $dayStatuses[$day] = false;
-        }
-        
-        if ($currentFiqrReport && $currentFiqrReport->patientDomainReports) {
-            foreach ($weekDays as $day) {
-                // Check if all 3 domains have answers for this day
-                $domainCount = 0;
-                foreach ($currentFiqrReport->patientDomainReports as $domainReport) {
-                    if ($domainReport->pdr_weekday === $day && $domainReport->reportAnswers && $domainReport->reportAnswers->count() > 0) {
-                        $domainCount++;
-                    }
-                }
-                // All 3 domains should have answers
-                $dayStatuses[$day] = $domainCount === 3;
-            }
-        }
-        
-        return $dayStatuses;
-    }
 
     /**
      * Get today's appointment for the authenticated patient

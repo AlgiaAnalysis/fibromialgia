@@ -20,6 +20,7 @@
         <!-- Styles -->
         @livewireStyles
     </head>
+
     <body class="font-sans antialiased">
         <x-ts-dialog />
         <x-ts-toast />
@@ -60,8 +61,8 @@
                                 <i class="fad fa-clipboard-list mr-2"></i>
                                 <span>Questionários</span>
                             </a>
-                            <a href="#"
-                               :class="activeTab === 'doctor.analyses' ? 'bg-blue-600/50 text-white' : 'text-blue-500/80 hover:text-white hover:bg-blue-600/50'"
+                            <a href="{{ route('doctor.report-analysis') }}"
+                               :class="activeTab === 'doctor.report-analysis' ? 'bg-blue-600/50 text-white' : 'text-blue-500/80 hover:text-white hover:bg-blue-600/50'"
                                class="flex items-center text-lg transition-colors px-4 py-3 rounded-lg whitespace-nowrap">
                                 <i class="fad fa-chart-line mr-2"></i>
                                 <span>Análises</span>
@@ -123,7 +124,7 @@
                         </div>
                     </div>
                 </div>
-            </header>
+            </div>
 
             <!-- Page Content -->
             <main class="h-[calc(100vh-140px)] overflow-y-auto">

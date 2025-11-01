@@ -30,6 +30,24 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Score Card -->
+            @if($existingReport && $existingReport->par_score !== null)
+                <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg shadow-lg p-6 mb-8 text-white">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="bg-white/20 rounded-lg px-4 py-3 mr-4">
+                                <i class="fad fa-chart-line text-2xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-orange-100 mb-1">Score do Questionário</h4>
+                                <p class="text-xs text-orange-200">Pontuação total</p>
+                            </div>
+                        </div>
+                        <span class="text-4xl font-bold">{{ number_format($existingReport->par_score, 0) }}</span>
+                    </div>
+                </div>
+            @endif
         @endif
 
         <!-- Questions List -->

@@ -16,7 +16,7 @@ Route::get('/daily-report', PatientDailyReportList::class)->name('patient.daily-
 Route::get('/daily-report-form/{id?}', PatientDailyReportForm::class)->name('patient.daily-report-form');
 
 Route::get('/fiqr-report', PatientFiqrReportList::class)->name('patient.fiqr-report');
-Route::get('/fiqr-report-form/{id}/{weekday}', PatientFiqrReportForm::class)->name('patient.fiqr-report-form');
+Route::get('/fiqr-report-form/{id?}', PatientFiqrReportForm::class)->name('patient.fiqr-report-form');
 
 Route::get('/appointment-list', PatientAppointmentList::class)->name('patient.appointment-list');
 Route::get('/appointment-form/{id?}', PatientAppointmentForm::class)->name('patient.appointment-form');

@@ -1,59 +1,228 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# AlgiaAnalysis
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Plataforma web para coleta de dados médicos de pacientes com fibromialgia, desenvolvida com a TALL Stack.
 
-## About Laravel
+## 📋 Sobre o Projeto
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+AlgiaAnalysis é um sistema de gestão de pacientes desenvolvido para auxiliar no acompanhamento médico de pessoas diagnosticadas com fibromialgia. A plataforma permite:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Questionários Diários**: Acompanhamento diário da condição do paciente
+- **Questionários FIQR**: Avaliação periódica do impacto da fibromialgia na qualidade de vida
+- **Consultas Médicas**: Registro e acompanhamento de consultas
+- **Análises e Relatórios**: Visualização de dados e análises geradas por IA
+- **Dashboard Interativo**: Visualização de gráficos e métricas de saúde
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🛠 Stack Tecnológica
 
-## Learning Laravel
+Este projeto utiliza a **TALL Stack**:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+- **T**ailwind CSS - Framework CSS utilitário
+- **A**lpine.js - Framework JavaScript minimalista
+- **L**aravel - Framework PHP
+- **L**ivewire - Framework para interfaces reativas
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Dependências Principais
 
-## Laravel Sponsors
+- **TallStackUI** - Único pacote de terceiros, fornece componentes UI prontos para uso
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 📦 Pré-requisitos
 
-### Premium Partners
+Antes de começar, certifique-se de ter instalado em sua máquina:
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+- **PHP** (versão 8.1 ou superior recomendada)
+- **Composer** - Gerenciador de dependências PHP
+- **Node.js** e **npm** - Para gerenciar assets frontend
+- **MySQL** ou **SQLite** - Banco de dados
 
-## Contributing
+## 🚀 Instalação
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Siga os passos abaixo para configurar o ambiente de desenvolvimento:
 
-## Code of Conduct
+### 1. Clone o repositório
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+git clone <url-do-repositorio>
+cd fibromialgia
+```
 
-## Security Vulnerabilities
+### 2. Instale as dependências PHP
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+composer install
+```
 
-## License
+### 3. Instale as dependências Node.js
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+npm install
+```
+
+### 4. Configure o arquivo .env
+
+Copie o arquivo `.env.example` para `.env`:
+
+```bash
+cp .env.example .env
+```
+
+Edite o arquivo `.env` e configure as seguintes variáveis:
+
+```env
+APP_NAME="AlgiaAnalysis"
+APP_ENV=local
+APP_KEY=
+APP_DEBUG=true
+APP_URL=http://localhost:8000
+
+DB_CONNECTION=sqlite
+# Ou configure MySQL se preferir
+# DB_HOST=127.0.0.1
+# DB_PORT=3306
+# DB_DATABASE=fibromialgia
+# DB_USERNAME=root
+# DB_PASSWORD=
+
+# Gemini API (para análises de IA)
+GEMINI_API_KEY=your_api_key_here
+```
+
+### 5. Gere a chave da aplicação
+
+```bash
+php artisan key:generate
+```
+
+### 6. Configure o banco de dados
+
+Se estiver usando SQLite, crie o arquivo de banco:
+
+```bash
+touch database/database.sqlite
+```
+
+Se estiver usando MySQL, crie o banco de dados e execute as migrations:
+
+```bash
+php artisan migrate
+```
+
+### 7. Seed do banco de dados (opcional)
+
+Para popular o banco com dados de exemplo:
+
+```bash
+php artisan db:seed
+```
+
+## ▶️ Como Executar
+
+O projeto requer dois processos rodando simultaneamente:
+
+### Terminal 1 - Servidor PHP
+
+```bash
+php artisan serve
+```
+
+O servidor estará disponível em: `http://localhost:8000`
+
+### Terminal 2 - Assets Frontend
+
+```bash
+npm run dev
+```
+
+Este comando compila os assets CSS e JavaScript em modo de desenvolvimento com hot-reload.
+
+> **Nota:** Mantenha ambos os terminais abertos durante o desenvolvimento.
+
+## 📁 Estrutura do Projeto
+
+```
+fibromialgia/
+├── app/
+│   ├── Http/
+│   │   └── Controllers/     # Controladores HTTP
+│   ├── Livewire/            # Componentes Livewire
+│   │   ├── Admin/           # Componentes do Admin
+│   │   ├── Auth/            # Autenticação
+│   │   ├── Doctor/          # Área do Médico
+│   │   └── Patient/         # Área do Paciente
+│   ├── Models/              # Modelos Eloquent
+│   └── Services/             # Serviços (ex: GeminiService)
+├── resources/
+│   ├── views/
+│   │   ├── components/      # Componentes Blade
+│   │   └── livewire/        # Views dos componentes Livewire
+│   ├── css/                 # Arquivos CSS
+│   └── js/                  # Arquivos JavaScript
+├── routes/
+│   ├── web.php              # Rotas web principais
+│   ├── doctor.php           # Rotas do médico
+│   └── patient.php          # Rotas do paciente
+└── database/
+    ├── migrations/           # Migrations do banco de dados
+    └── seeders/              # Seeders
+```
+
+## 👥 Usuários do Sistema
+
+### Paciente
+- Cadastro e gerenciamento de questionários diários
+- Preenchimento de questionários FIQR
+- Registro de consultas médicas
+- Visualização de relatórios e análises
+
+### Médico
+- Gestão de pacientes vinculados
+- Visualização de questionários e consultas
+- Geração de análises comparativas com IA
+- Prescrição de medicamentos
+
+## 🔧 Comandos Úteis
+
+### Desenvolvimento
+```bash
+# Limpar cache
+php artisan cache:clear
+php artisan config:clear
+php artisan view:clear
+
+# Recompilar assets
+npm run build
+
+# Executar testes
+php artisan test
+```
+
+### Banco de Dados
+```bash
+# Criar nova migration
+php artisan make:migration create_table_name
+
+# Executar migrations
+php artisan migrate
+
+# Rollback
+php artisan migrate:rollback
+```
+
+## 🌐 Variáveis de Ambiente Importantes
+
+Certifique-se de configurar estas variáveis no arquivo `.env`:
+
+- `APP_KEY` - Chave de criptografia da aplicação
+- `DB_CONNECTION` - Tipo de banco de dados (sqlite, mysql)
+- `GEMINI_API_KEY` - Chave da API do Gemini para análises de IA
+
+## 📝 Licença
+
+Este projeto é privado e destinado a uso interno.
+
+## 👨‍💻 Desenvolvimento
+
+Para mais informações sobre desenvolvimento ou suporte, entre em contato com a equipe de desenvolvimento.
+
+---
+
+**Desenvolvido com ❤️ usando TALL Stack**

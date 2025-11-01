@@ -22,6 +22,11 @@ return [
         'key' => env('RESEND_KEY'),
     ],
 
+    'gemini' => [
+        'api_key' => env('GEMINI_API_KEY', 'AIzaSyCJ68uq5oC-xfSC-eh0RAxtmdRVQriilec'),
+        'endpoint' => 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent',
+    ],
+
     'ses' => [
         'key' => env('AWS_ACCESS_KEY_ID'),
         'secret' => env('AWS_SECRET_ACCESS_KEY'),

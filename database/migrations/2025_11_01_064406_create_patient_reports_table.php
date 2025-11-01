@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('par_medication');
             $table->integer('par_score');
             $table->text('par_cli_resume');
-            $table->foreignId('pat_id')->constrained('patients', 'pat_id')->onDelete('cascade');
+            $table->string('par_type');
+            $table->foreignId('patient_pat_id')->constrained('patients', 'pat_id')->onDelete('cascade');
         });
     }
 

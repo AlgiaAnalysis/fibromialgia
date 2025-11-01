@@ -147,31 +147,81 @@
     </div>
 
     <div class="flex items-center my-8">
-        <div class="flex-grow h-px bg-gray-300"></div>
+        <div class="flex-grow h-px bg-orange-300"></div>
             <div class="mx-6">
-                <i class="fad fa-heartbeat text-gray-400 text-2xl"></i>
+                <i class="fad fa-heartbeat text-orange-400 text-2xl"></i>
             </div>
-        <div class="flex-grow h-px bg-gray-300"></div>
+        <div class="flex-grow h-px bg-orange-300"></div>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Newsletters List Card -->
         <div class="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-        
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center">
+                    <div class="bg-blue-500/10 rounded-lg px-4 py-3 mr-3">
+                        <i class="fad fa-chart-bar text-blue-500 text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800">Análises Gerais</h3>
+                        <p class="text-sm text-gray-500">
+                            Veja as análises gerais do sistema
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     
         <!-- Newsletter Editions Card -->
         <div class="bg-white rounded-lg shadow-md p-6 border border-gray-200">
             <div class="flex items-center justify-between mb-6">
                 <div class="flex items-center">
-                    <div class="bg-gray-800 rounded-lg p-2 mr-3">
-                        <i class="fad fa-scroll text-white text-lg"></i>
+                    <div class="bg-orange-500/10 rounded-lg px-4 py-3 mr-3">
+                        <i class="fad fa-exclamation-circle text-orange-500 text-lg"></i>
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold text-gray-800">Pacientes Críticos</h3>
                         <p class="text-sm text-gray-500">
                             Veja os pacientes críticos do sistema
                         </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-6">
+                <div class="flex flex-row justify-between bg-white rounded-lg shadow-md w-full p-6 border border-gray-200">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-lg bg-orange-500/10 border border-orange-200 flex items-center justify-center">
+                            <i class="fad fa-user-injured text-2xl text-orange-500"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="text-sm font-medium text-gray-500">João da Silva</h4>
+                            <span class="text-lg font-bold text-orange-500">Score: 6.8</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-row justify-between bg-white rounded-lg shadow-md w-full p-6 border border-gray-200">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-lg bg-orange-500/10 border border-orange-200 flex items-center justify-center">
+                            <i class="fad fa-user-injured text-2xl text-orange-500"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="text-sm font-medium text-gray-500">João da Silva</h4>
+                            <span class="text-lg font-bold text-orange-500">Score: 6.8</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-row justify-between bg-white rounded-lg shadow-md w-full p-6 border border-gray-200">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-lg bg-orange-500/10 border border-orange-200 flex items-center justify-center">
+                            <i class="fad fa-user-injured text-2xl text-orange-500"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="text-sm font-medium text-gray-500">João da Silva</h4>
+                            <span class="text-lg font-bold text-orange-500">Score: 6.8</span>
+                        </div>
                     </div>
                 </div>
             </div>

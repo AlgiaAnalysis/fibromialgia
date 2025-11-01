@@ -7,6 +7,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Database\Seeders\QuestionsSeeder;
 use Database\Seeders\FiqrReportSeeder;
+use Database\Seeders\AppointmentQuestionsSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,7 +19,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            FiqrReportSeeder::class,
+            AppointmentQuestionsSeeder::class,
         ]);
     }
 }

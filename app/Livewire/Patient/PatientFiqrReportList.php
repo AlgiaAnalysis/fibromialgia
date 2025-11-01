@@ -5,6 +5,7 @@ namespace App\Livewire\Patient;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
 use App\Models\PatientReport;
+use Illuminate\Support\Facades\Auth;
 
 #[Layout('components.layouts.patient-layout')]
 class PatientFiqrReportList extends Component
@@ -15,8 +16,7 @@ class PatientFiqrReportList extends Component
 
     public function render()
     {
-        // Hard-coded patient ID as requested
-        $patientId = 1;
+        $patientId = Auth::user()->usr_represented_agent;
         
         // Get latest FIQR report for this patient (should be current week's report)
         $currentFiqrReport = PatientReport::where('patient_pat_id', $patientId)

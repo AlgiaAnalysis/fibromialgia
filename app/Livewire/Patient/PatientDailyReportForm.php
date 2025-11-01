@@ -10,6 +10,7 @@ use App\Models\PatientReport;
 use App\Models\PatientDomainReport;
 use App\Models\ReportAnswer;
 use TallStackUi\Traits\Interactions;
+use Illuminate\Support\Facades\Auth;
 
 #[Layout('components.layouts.patient-layout')]
 class PatientDailyReportForm extends Component
@@ -69,7 +70,7 @@ class PatientDailyReportForm extends Component
         }
 
         // Hard-coded patient ID as requested
-        $patientId = 1;
+        $patientId = Auth::user()->usr_represented_agent;
         $today = date('Y-m-d');
 
         // Create PatientReport

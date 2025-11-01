@@ -5,6 +5,7 @@ namespace App\Livewire\Patient;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
 use App\Models\PatientReport;
+use Illuminate\Support\Facades\Auth;
 
 #[Layout('components.layouts.patient-layout')]
 class PatientDailyReportList extends Component
@@ -20,7 +21,7 @@ class PatientDailyReportList extends Component
     public function render()
     {
         // Hard-coded patient ID as requested
-        $patientId = 1;
+        $patientId = Auth::user()->usr_represented_agent;
         $today = date('Y-m-d');
         
         // Check if patient already filled today's questionnaire

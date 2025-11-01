@@ -16,6 +16,10 @@ class PatientDashboard extends Component
         return redirect()->route('patient.fiqr-report');
     }
 
+    public function goToAppointmentList() {
+        return redirect()->route('patient.appointment-list');
+    }
+
     public function render()
     {
         return view('livewire.patient.patient-dashboard');

@@ -157,7 +157,7 @@ class PatientFiqrReportForm extends Component
             foreach ($domain['questions'] as $question) {
                 ReportAnswer::create([
                     'rea_value' => $this->answers[$domainKey][$question->que_id],
-                    'rea_week_day' => '', // Empty for FIQR as weekday is in PatientDomainReport
+                    'rea_week_day' => $this->weekday,
                     'patient_domain_report_pdr_id' => $patientDomainReport->pdr_id,
                     'question_que_id' => $question->que_id,
                 ]);

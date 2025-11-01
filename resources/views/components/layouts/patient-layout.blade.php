@@ -90,8 +90,8 @@
                                         <i class="fad fa-user text-blue-500/80 text-xl"></i>
                                     </div>
                                     <div class="flex-1 min-w-0">
-                                        <p class="text-sm font-medium text-white truncate">nome@email.com</p>
-                                        <p class="text-xs text-gray-800/50 capitalize">Paciente</p>
+                                        <p class="text-sm font-medium text-white truncate">{{ auth()->user()->usr_name }}</p>
+                                        <p class="text-xs text-gray-800/50 capitalize">{{ auth()->user()->usr_email }}</p>
                                     </div>
                                 </div>
                             </div>

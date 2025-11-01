@@ -28,6 +28,10 @@ class User extends Authenticatable
         "usr_cpf",
     ];
 
+    public function doctor() {
+        return $this->belongsTo(Doctor::class, "usr_represented_agent", "doc_id");
+    }
+
     public function patient() {
         return $this->belongsTo(Patient::class, "usr_represented_agent", "pat_id");
     }

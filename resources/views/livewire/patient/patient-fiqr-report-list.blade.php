@@ -77,7 +77,12 @@
                                             <div class="flex items-center justify-between">
                                                 <div class="flex items-center">
                                                     <div class="w-10 h-10 rounded-lg flex items-center justify-center mr-3 {{ $isFilled ? 'bg-green-500/20' : 'bg-blue-500/20' }}">
-                                                        <i class="fad {{ $isFilled ? 'fa-check-circle' : 'fa-calendar-day' }} {{ $isFilled ? 'text-green-500' : 'text-blue-500' }}"></i>
+                                                        <i
+                                                            wire:loading.remove wire:target="viewReportDay({{ $currentFiqrReport->par_id }}, '{{ $day }}')"
+                                                            class="fad {{ $isFilled ? 'fa-check-circle' : 'fa-calendar-day' }} {{ $isFilled ? 'text-green-500' : 'text-blue-500' }}"></i>
+                                                        <i
+                                                            wire:loading wire:target="viewReportDay({{ $currentFiqrReport->par_id }}, '{{ $day }}')"
+                                                            class="fad fa-spinner fa-spin text-blue-500 text-xl"></i>
                                                     </div>
                                                     <div>
                                                         <span class="font-medium text-gray-700 block">{{ $dayName }}</span>

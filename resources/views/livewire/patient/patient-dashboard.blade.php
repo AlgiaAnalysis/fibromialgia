@@ -54,14 +54,14 @@
                 </div>
             </button>
 
-            <button wire:click="showAllEditions" class="block w-full">
+            <button wire:click="goToAppointmentList" class="block w-full">
                 <div class="bg-orange-200/60 rounded-lg shadow-md border hover:cursor-pointer border-gray-200 overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
                     <div class="p-4 flex flex-row items-center justify-start">
                         <div class="h-12 w-12 bg-white rounded-lg flex items-center justify-center">
                             <div class="flex flex-col items-center">
-                                <i wire:loading.remove wire:target="showAllEditions"
+                                <i wire:loading.remove wire:target="goToAppointmentList"
                                     class="fad fa-stethoscope text-2xl text-orange-500/80"></i>
-                                <i wire:loading wire:target="showAllEditions"
+                                <i wire:loading wire:target="goToAppointmentList"
                                     class="fad fa-spinner fa-spin text-2xl text-orange-500/80"></i>
                             </div>
                         </div>
